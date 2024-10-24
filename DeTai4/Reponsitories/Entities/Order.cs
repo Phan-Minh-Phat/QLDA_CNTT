@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeTai4.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace DeTai4.Repositories.Entities;

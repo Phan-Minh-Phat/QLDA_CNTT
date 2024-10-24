@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DeTai4.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeTai4.Repositories.Entities;
@@ -14,6 +15,10 @@ public partial class DeTai4Context : DbContext
         : base(options)
     {
     }
+
+    public virtual DbSet<Blog> Blogs { get; set; }
+
+    public virtual DbSet<CompanyInfo> CompanyInfos { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
 
@@ -43,6 +48,31 @@ public partial class DeTai4Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Blog>(entity =>
+        {
+            entity.HasKey(e => e.PostId).HasName("PK__Blog__AA126018C0A6E823");
+
+            entity.ToTable("Blog");
+
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Summary).HasMaxLength(500);
+            entity.Property(e => e.Title).HasMaxLength(200);
+        });
+
+        modelBuilder.Entity<CompanyInfo>(entity =>
+        {
+            entity.HasKey(e => e.CompanyId).HasName("PK__CompanyI__2D971CAC032DEBE1");
+
+            entity.ToTable("CompanyInfo");
+
+            entity.Property(e => e.Address).HasMaxLength(250);
+            entity.Property(e => e.CompanyName).HasMaxLength(100);
+            entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.PhoneNumber).HasMaxLength(15);
+        });
+
         modelBuilder.Entity<Customer>(entity =>
         {
             entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64D89347B859");
