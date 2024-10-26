@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeTai4.Entities;
+using DeTai4.Reponsitories.Repositories.Entities;
 using DeTai4.Repositories;
-using DeTai4.Repositories.Entities;
 
 namespace DeTai4.Services
 {

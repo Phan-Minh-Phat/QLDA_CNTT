@@ -1,4 +1,4 @@
-﻿using DeTai4.Repositories.Entities; // Tham chiếu đúng đến các entity
+﻿using DeTai4.Reponsitories.Repositories.Entities;
 using Microsoft.EntityFrameworkCore;
 using DeTai4.Repositories.Interfaces; // Đảm bảo sử dụng đúng namespace cho ICustomerRepository
 using System.Collections.Generic;
@@ -38,6 +38,11 @@ namespace DeTai4.Repositories.Implementations
         // Thêm khách hàng mới
         public async Task AddCustomerAsync(Customer customer)
         {
+            var user = await _context.Users.FindAsync(customer.UserId);
+            if (user != null)
+            {
+                customer.FullName = user.FullName;
+            }
             await _context.Customers.AddAsync(customer);
             await _context.SaveChangesAsync();
         }
@@ -45,6 +50,11 @@ namespace DeTai4.Repositories.Implementations
         // Cập nhật thông tin khách hàng
         public async Task UpdateCustomerAsync(Customer customer)
         {
+            var user = await _context.Users.FindAsync(customer.UserId);
+            if (user != null)
+            {
+                customer.FullName = user.FullName;
+            }
             _context.Customers.Update(customer);
             await _context.SaveChangesAsync();
         }

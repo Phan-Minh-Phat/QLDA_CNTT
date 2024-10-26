@@ -1,0 +1,337 @@
+﻿@page
+@model CompanyInfoModel
+@{
+    ViewData["Title"] = "Thông Tin Công Ty";
+}
+<!-- Carousel Start -->
+<div class="container-fluid overflow-hidden px-0">
+    <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></button>
+            <button type="button" data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></button>
+            <button type="button" data-bs-target="#carouselId" data-bs-slide-to="2" aria-label="Third slide"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://www.hancorp.com.vn/wp-content/uploads/2020/12/thi-cong-ho-ca-koi-3.jpg" class="img-fluid w-100" alt="First slide" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="text-uppercase text-secondary mb-0">Thi Công Hồ Cá Koi</h5>
+                    <h1 class="display-3 text-white mb-4">Chúng tôi tạo nên không gian sống xanh</h1>
+                    <p class="mb-4">Với đội ngũ chuyên nghiệp, chúng tôi thi công hồ cá Koi từ nhỏ đến lớn, đáp ứng mọi nhu cầu của bạn.</p>
+                    <a href="/Customer/CustomerRegistration" class="btn btn-primary py-2 px-4 me-2">Đăng Ký Ngay</a>
+                    <a href="/Customer/Login" class="btn btn-light py-2 px-4 ms-2">Đăng Nhập</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://sanvuonadong.vn/wp-content/uploads/2020/10/mau-ho-ca-koi-goc-san-vuon-01-san-vuon-a-dong.jpg" class="img-fluid w-100" alt="Second slide" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="text-uppercase text-secondary mb-0">Thi Công Hồ Cá Koi</h5>
+                    <h1 class="display-3 text-white mb-4">Không gian sân vườn hoàn hảo</h1>
+                    <p class="mb-4">Tạo không gian thư giãn với hồ cá Koi tinh tế, phù hợp cho sân vườn nhà bạn.</p>
+                    <a href="/Customer/CustomerRegistration" class="btn btn-primary py-2 px-4 me-2">Đăng Ký Ngay</a>
+                    <a href="/Customer/Login" class="btn btn-light py-2 px-4 ms-2">Đăng Nhập</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://sanvuontrucxinh.com/upload/H%E1%BB%93%20C%C3%A1%20Koi%20%C4%90%E1%BA%B9p/ho_ca_koi_san_vuon5.jpg" class="img-fluid w-100" alt="Third slide" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="text-uppercase text-secondary mb-0">Thi Công Hồ Cá Koi</h5>
+                    <h1 class="display-3 text-white mb-4">Thiết kế theo yêu cầu</h1>
+                    <p class="mb-4">Thiết kế hồ cá Koi theo diện tích và yêu cầu riêng của bạn, mang đến sự độc đáo và sáng tạo.</p>
+                    <a href="/Customer/CustomerRegistration" class="btn btn-primary py-2 px-4 me-2">Đăng Ký Ngay</a>
+                    <a href="/Customer/Login" class="btn btn-light py-2 px-4 ms-2">Đăng Nhập</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<!-- Carousel End -->
+<!-- Header Section with Overlay -->
+<div class="container-fluid position-relative text-center text-white py-5" style="background-image: url('/images/company-header.jpg'); background-size: cover; background-position: center;">
+    <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <div class="position-relative" style="z-index: 1;">
+        <h1 class="display-4">Giới Thiệu Về Chúng Tôi</h1>
+        <p class="lead">Chúng tôi mang đến giải pháp thiết kế và thi công hồ cá Koi hàng đầu.</p>
+    </div>
+</div>
+<!-- Company Information Section -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Thông Tin Công Ty</h2>
+
+    @if (Model.Company != null)
+    {
+        <div class="card mb-4 shadow-lg">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="/images/z5949756413878_9d3024e68c4af5efa2340a2eddde50bd.jpg" class="img-fluid rounded-start" alt="Hình ảnh công ty">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h3 class="card-title">@Model.Company.CompanyName</h3>
+                        <p class="card-text">
+                            <strong>Địa chỉ:</strong> @Model.Company.Address
+                        </p>
+                        <p class="card-text">
+                            <strong>Số điện thoại:</strong> @Model.Company.PhoneNumber
+                        </p>
+                        <p class="card-text">
+                            <strong>Email:</strong> @Model.Company.Email
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Section with Left Text and Right Image -->
+            <div class="container mt-5">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h3 class="text-primary">Bạn cho tôi không gian, tôi tặng bạn cảm xúc!!!</h3>
+                        <p>Tôi tin rằng không gian cảnh quan không chỉ là nơi, nó là cách bạn trải nghiệm cuộc sống. Sứ mệnh của tôi là mang đến cho khách hàng những không gian sống nên thơ, yên bình và thanh lịch, qua phong cách thiết kế tinh tế và đầy triết lý Nhật.</p>
+                        <p>Mỗi công trình cảnh quan của tôi là một tác phẩm độc đáo, phản ánh sự thành công và phong cách sống của khách hàng.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="https://sgl.com.vn/wp-content/uploads/2023/10/govap-jgarden.jpg" class="img-fluid rounded shadow" alt="Không gian cảnh quan độc đáo">
+                    </div>
+                </div>
+            </div>
+        <!-- Features Start -->
+        <div class="container-fluid feature bg-light py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                    <p class="text-uppercase text-secondary fs-5 mb-0">Tại Sao Chọn Chúng Tôi</p>
+                    <h2 class="display-4 text-capitalize mb-3">Lý Do Chọn Koi Pond Design</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="feature-item text-center border p-5">
+                            <div class="feature-img bg-secondary d-inline-flex p-4">
+                                <i class="fas fa-paint-brush text-primary fa-5x"></i>
+                            </div>
+                            <a href="#" class="h4 d-block my-4">Độc Đáo và Cá Nhân Hóa</a>
+                            <p class="mb-0">Chúng tôi tạo ra mỗi hồ cá Koi như một tác phẩm nghệ thuật độc nhất, phản ánh cá tính và phong cách sống của bạn.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="feature-item text-center border p-5">
+                            <div class="feature-img bg-secondary d-inline-flex p-4">
+                                <i class="fas fa-hands-helping text-primary fa-5x"></i>
+                            </div>
+                            <a href="#" class="h4 d-block my-4">Dịch Vụ Sau Bán Hàng Tận Tâm</a>
+                            <p class="mb-0">Dịch vụ chăm sóc toàn diện giúp hồ cá của bạn luôn khỏe mạnh và đẹp như mới.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="feature-item text-center border p-5">
+                            <div class="feature-img bg-secondary d-inline-flex p-4">
+                                <i class="fas fa-water text-primary fa-5x"></i>
+                            </div>
+                            <a href="#" class="h4 d-block my-4">Hài Hòa Phong Thủy</a>
+                            <p class="mb-0">Thiết kế hài hòa với phong thủy, mang lại tài lộc, may mắn và bình an cho gia đình bạn.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Features End -->
+        <!-- Additional Project Information Section -->
+            <h3 class="mb-3">những điều Koi Pond đặt lên hàng đầu</h3>
+            <div class="mb-3">
+                <h4 class="text-primary">Tập trung vào sự khác biệt và giá trị cốt lõi</h4>
+                <p>Koi Pond Design không chỉ đơn thuần là một đơn vị thi công hồ cá Koi, mà còn là nơi hội tụ những nghệ nhân yêu cá và tâm huyết với nghệ thuật sắp đặt. Chúng tôi mang đến những giải pháp thiết kế độc đáo, kết hợp hài hòa giữa yếu tố thẩm mỹ và phong thủy, biến hồ cá Koi của bạn trở thành một tác phẩm nghệ thuật sống động. Với kinh nghiệm nhiều năm và đội ngũ kỹ thuật viên lành nghề, chúng tôi cam kết mang đến cho khách hàng những sản phẩm chất lượng cao, dịch vụ chuyên nghiệp và sự hài lòng tuyệt đối.</p>
+            </div>
+            <div class="mb-3">
+                <h4 class="text-primary">Nhấn mạnh vào trải nghiệm khách hàng và dịch vụ trọn gói</h4>
+                <p>Tại Koi Pond Design, chúng tôi hiểu rằng hồ cá Koi không chỉ là một sản phẩm, mà còn là một phần cuộc sống của bạn. Vì vậy, chúng tôi luôn lắng nghe và thấu hiểu nhu cầu của khách hàng để tạo ra những không gian sống lý tưởng. Từ khâu tư vấn thiết kế, lựa chọn vật liệu, thi công đến bảo trì, chúng tôi cam kết đồng hành cùng bạn trong suốt quá trình. Với dịch vụ chăm sóc khách hàng tận tâm, chúng tôi đảm bảo rằng hồ cá Koi của bạn luôn đẹp và khỏe mạnh.</p>
+            </div>
+            <div class="mb-3">
+                <h4 class="text-primary">Liên kết với xu hướng và thị trường</h4>
+                <p>Trong xu hướng hiện đại, hồ cá Koi không chỉ đơn thuần là một hồ nước, mà còn là một điểm nhấn độc đáo cho không gian sống. Koi Pond Design luôn cập nhật những xu hướng thiết kế mới nhất, kết hợp với các yếu tố tự nhiên, tạo nên những hồ cá Koi mang phong cách hiện đại, sang trọng và độc đáo. Chúng tôi tin rằng, hồ cá Koi không chỉ mang lại giá trị thẩm mỹ mà còn góp phần nâng cao chất lượng cuộc sống.</p>
+            </div>
+            <div class="mb-3">
+                <h4 class="text-primary">Tạo dựng niềm tin và sự uy tín</h4>
+                <p>Với nhiều năm kinh nghiệm trong lĩnh vực thiết kế và thi công hồ cá Koi, Koi Pond Design đã thực hiện hàng trăm dự án lớn nhỏ trên khắp cả nước. Chúng tôi đã nhận được sự tin tưởng và hài lòng từ đông đảo khách hàng. Với đội ngũ nhân viên chuyên nghiệp, nhiệt tình và giàu kinh nghiệm, chúng tôi cam kết mang đến cho bạn những sản phẩm và dịch vụ tốt nhất.</p>
+            </div>
+        <!-- Bộ Đếm Số Liệu -->
+        <div class="container-fluid counter py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="counter-box">
+                            <div class="counter-item">
+                                <div class="counter-item-style"></div>
+                                <div class="counter-item-inner p-5">
+                                    <i class="fas fa-thumbs-up fa-4x text-secondary"></i>
+                                    <h4 class="text-dark my-4">Dự Án Hoàn Thành</h4>
+                                    <div class="counter-counting">
+                                        <span class="text-secondary fs-2 fw-bold" data-toggle="counter-up">456</span>
+                                        <span class="h1 fw-bold text-secondary">+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="counter-box">
+                            <div class="counter-item">
+                                <div class="counter-item-style"></div>
+                                <div class="counter-item-inner p-5">
+                                    <i class="fas fa-users fa-4x text-secondary"></i>
+                                    <h4 class="text-dark my-4">Khách Hàng Hài Lòng</h4>
+                                    <div class="counter-counting">
+                                        <span class="text-secondary fs-2 fw-bold" data-toggle="counter-up">513</span>
+                                        <span class="h1 fw-bold text-secondary">+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="counter-box">
+                            <div class="counter-item">
+                                <div class="counter-item-style"></div>
+                                <div class="counter-item-inner p-5">
+                                    <i class="fas fa-user fa-4x text-secondary"></i>
+                                    <h4 class="text-dark my-4">Kỹ Sư Đạt Tiêu Chuẩn</h4>
+                                    <div class="counter-counting">
+                                        <span class="text-secondary fs-2 fw-bold" data-toggle="counter-up">53</span>
+                                        <span class="h1 fw-bold text-secondary">+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
+                        <div class="counter-box">
+                            <div class="counter-item">
+                                <div class="counter-item-style"></div>
+                                <div class="counter-item-inner p-5">
+                                    <i class="fas fa-heart fa-4x text-secondary"></i>
+                                    <h4 class="text-dark my-4">Năm Kinh Nghiệm</h4>
+                                    <div class="counter-counting">
+                                        <span class="text-secondary fs-2 fw-bold" data-toggle="counter-up">17</span>
+                                        <span class="h1 fw-bold text-secondary">+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center pt-4 wow fadeInUp" data-wow-delay="0.9s">
+                        <a class="counter-btn btn btn-secondary py-3 px-5" href="/User/Login">Tham Gia Cùng Chúng Tôi</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bộ Đếm Số Liệu -->
+        <!-- Đội Ngũ Bắt Đầu -->
+        <div class="container-fluid team py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                    <p class="text-uppercase text-secondary fs-5 mb-0">Đội Ngũ Của Chúng Tôi</p>
+                    <h2 class="display-4 text-capitalize mb-3">Thành Viên Chuyên Gia</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="team-item border border-primary p-1">
+                            <div class="team-border-style-1"></div>
+                            <div class="team-border-style-2"></div>
+                            <div class="team-border-style-3"></div>
+                            <div class="team-border-style-4"></div>
+                            <div class="team-img">
+                                <img src="https://img.lovepik.com/photo/20220225/medium/lovepik-factory-skilled-worker-refueling-image-picture_502362051.jpg" class="img-fluid w-100" alt="Masud James">
+                                <div class="team-icon d-flex justify-content-around">
+                                    <a class="btn btn-secondary btn-md-square text-white mx-3" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-linkedin-in"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center border border-top-0 bg-white py-3">
+                                <h4 class="mb-0">Masud James</h4>
+                                <p class="mb-0">Nhân Viên Thiết Kế</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="team-item border border-primary p-1">
+                            <div class="team-border-style-1"></div>
+                            <div class="team-border-style-2"></div>
+                            <div class="team-border-style-3"></div>
+                            <div class="team-border-style-4"></div>
+                            <div class="team-img">
+                                <img src="https://media.istockphoto.com/id/537379518/vi/anh/ng%C6%B0%E1%BB%9Di-%C4%91%C3%A0n-%C3%B4ng-l%C3%A0m-vi%E1%BB%87c-t%E1%BA%A1i-m%E1%BB%99t-nh%C3%A0-m%C3%A1y.jpg?s=612x612&w=0&k=20&c=jesgdSt8FFu-eTSQJEMG074ujPf-MmvLhl7nhVb1hBo=" class="img-fluid w-100" alt="Lodra Matthus">
+                                <div class="team-icon d-flex justify-content-around">
+                                    <a class="btn btn-secondary btn-md-square text-white mx-3" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-linkedin-in"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center border border-top-0 bg-white py-3">
+                                <h4 class="mb-0">Lodra Matthus</h4>
+                                <p class="mb-0">Nhân Viên Tư Vấn</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="team-item border border-primary p-1">
+                            <div class="team-border-style-1"></div>
+                            <div class="team-border-style-2"></div>
+                            <div class="team-border-style-3"></div>
+                            <div class="team-border-style-4"></div>
+                            <div class="team-img">
+                                <img src="https://media.istockphoto.com/id/1128735755/vi/anh/c%C3%B4ng-nh%C3%A2n-turner-l%C3%A0m-vi%E1%BB%87c-tr%C3%AAn-m%C5%A9i-khoan-trong-m%E1%BB%99t-x%C6%B0%E1%BB%9Fng.jpg?s=612x612&w=0&k=20&c=CWNqLo3I673A72s7m0WUJuwAv7HSE23-1UNFINRA6LM=" class="img-fluid w-100" alt="Jashey Tim">
+                                <div class="team-icon d-flex justify-content-around">
+                                    <a class="btn btn-secondary btn-md-square text-white mx-3" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-linkedin-in"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center border border-top-0 bg-white py-3">
+                                <h4 class="mb-0">Jashey Tim</h4>
+                                <p class="mb-0">Nhân Viên Thi Công</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.8s">
+                        <div class="team-item border border-primary p-1">
+                            <div class="team-border-style-1"></div>
+                            <div class="team-border-style-2"></div>
+                            <div class="team-border-style-3"></div>
+                            <div class="team-border-style-4"></div>
+                            <div class="team-img">
+                                <img src="https://media.istockphoto.com/id/1366345325/vi/anh/ng%C6%B0%E1%BB%9Di-%C4%91%C3%A0n-%C3%B4ng-m%E1%BB%B9-g%E1%BB%91c-phi-l%C3%A0m-vi%E1%BB%87c-trong-nh%C3%A0-m%C3%A1y-nh%E1%BB%B1a.jpg?s=612x612&w=0&k=20&c=JWb51CVdY01jT_y-AANoTBjWdoeJ8TGXqcwxJESQYnI=" class="img-fluid w-100" alt="Johnson">
+                                <div class="team-icon d-flex justify-content-around">
+                                    <a class="btn btn-secondary btn-md-square text-white mx-3" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-linkedin-in"></i></a>
+                                    <a class="btn btn-secondary btn-md-square text-white me-3" href=""><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center border border-top-0 bg-white py-3">
+                                <h4 class="mb-0">Johnson</h4>
+                                <p class="mb-0">Quản Lý</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Đội Ngũ Kết Thúc -->
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            Không tìm thấy thông tin công ty.
+        </div>
+    }
+</div>

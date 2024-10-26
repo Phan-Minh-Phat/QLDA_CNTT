@@ -25,8 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Home\" />
-    <Folder Include="wwwroot\images\" />
+    <Folder Include="Pages\Design_Staff\" />
+    <Folder Include="Pages\Construction_Staff\" />
+    <Folder Include="Pages\Manager\" />
   </ItemGroup>
 
 </Project>

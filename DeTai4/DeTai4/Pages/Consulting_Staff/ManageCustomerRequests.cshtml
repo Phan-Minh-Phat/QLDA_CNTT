@@ -1,0 +1,45 @@
+﻿@page
+@model DeTai4.Pages.Consulting_Staff.ManageCustomerRequestsModel
+@{
+    ViewData["Title"] = "Quản Lý Yêu Cầu Khách Hàng";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">@ViewData["Title"]</h2>
+    <p class="text-center">Danh sách các dự án đang chờ xử lý</p>
+
+    @if (Model.PendingProjects != null && Model.PendingProjects.Count > 0)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Mã Dự Án</th>
+                    <th scope="col">Tên Dự Án</th>
+                    <th scope="col">Tên Khách Hàng</th>
+                    <th scope="col">Địa Chỉ</th>
+                    <th scope="col">Số Điện Thoại</th>
+                    <th scope="col">Ngày Bắt Đầu</th>
+                    <th scope="col">Trạng Thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model.PendingProjects)
+                {
+                    <tr>
+                        <td>@project.ProjectId</td>
+                        <td>@project.ProjectName</td>
+                        <td>@project.Customer?.FullName</td> <!-- Hiển thị tên khách hàng trực tiếp từ Customer -->
+                        <td>@project.Customer?.Address</td>
+                        <td>@project.Customer?.PhoneNumber</td>
+                        <td>@project.StartDate?.ToString("dd/MM/yyyy")</td>
+                        <td>@project.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center text-muted">Không có dự án nào đang chờ xử lý.</p>
+    }
+</div>

@@ -1,4 +1,4 @@
-﻿using DeTai4.Repositories.Entities;
+﻿using DeTai4.Reponsitories.Repositories.Entities;
 using DeTai4.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -40,6 +40,13 @@ namespace DeTai4.Repositories.Implementations
         // Thêm đơn hàng mới
         public async Task AddOrderAsync(Order order)
         {
+            var customer = await _context.Customers
+                              .Include(c => c.User)
+                              .FirstOrDefaultAsync(c => c.CustomerId == order.CustomerId);
+            if (customer != null && customer.User != null)
+            {
+                order.FullName = customer.User.FullName;
+            }
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
         }
@@ -47,6 +54,13 @@ namespace DeTai4.Repositories.Implementations
         // Cập nhật thông tin đơn hàng
         public async Task UpdateOrderAsync(Order order)
         {
+            var customer = await _context.Customers
+                                 .Include(c => c.User)
+                                 .FirstOrDefaultAsync(c => c.CustomerId == order.CustomerId);
+            if (customer != null && customer.User != null)
+            {
+                order.FullName = customer.User.FullName;
+            }
             _context.Orders.Update(order);
             await _context.SaveChangesAsync();
         }

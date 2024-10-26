@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeTai4.Repositories.Entities;
+using DeTai4.Reponsitories.Repositories.Entities;
 
 namespace DeTai4.Services.Interfaces
 {
@@ -12,5 +12,8 @@ namespace DeTai4.Services.Interfaces
         Task CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int userId);
+        Task<bool> ValidateUserAsync(string username, string password);
+        Task<bool> CheckUserExistsAsync(string username);
+
     }
 }

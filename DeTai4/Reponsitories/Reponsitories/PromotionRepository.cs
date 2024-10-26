@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DeTai4.Repositories.Entities;
+using DeTai4.Reponsitories.Repositories.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeTai4.Repositories

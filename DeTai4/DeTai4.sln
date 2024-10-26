@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeTai4", "DeTai4\DeTai4.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeTai4.Reponsitories", "Reponsitories\DeTai4.Reponsitories.csproj", "{9FD695D0-867E-4438-BF34-3FAED234120F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeTai4.Services", "DeTai4.Services\DeTai4.Services.csproj", "{B1C730D0-B044-41B7-AB18-285D3EC0CEE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeTai4.Services", "DeTai4.Services\DeTai4.Services.csproj", "{B1C730D0-B044-41B7-AB18-285D3EC0CEE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
