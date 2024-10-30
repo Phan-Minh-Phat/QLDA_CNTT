@@ -1,0 +1,55 @@
+﻿@page
+@model DeTai4.Pages.Consulting_Staff.ConsultingDashboardModel
+@{
+    ViewData["Title"] = "Consulting Dashboard";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Consulting Dashboard</h2>
+
+    <div class="row">
+        <!-- Quản lý yêu cầu khách hàng -->
+        <div class="col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Quản Lý Yêu Cầu Khách Hàng</h5>
+                    <p class="card-text">Tiếp nhận và xử lý các yêu cầu từ khách hàng.</p>
+                    <a href="/Consulting_Staff/ManageCustomerRequests" class="btn btn-primary">Quản lý yêu cầu</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tư vấn cho khách hàng -->
+        <div class="col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Tư Vấn Cho Khách Hàng</h5>
+                    <p class="card-text">Cung cấp tư vấn và hướng dẫn cho khách hàng.</p>
+                    <a href="/Consulting_Staff/ProvideConsultation" class="btn btn-primary">Tư vấn</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lập báo giá -->
+        <div class="col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Lập Báo Giá</h5>
+                    <p class="card-text">Lập và gửi báo giá cho khách hàng.</p>
+                    <a href="/Consulting_Staff/CreateQuotation" class="btn btn-primary">Lập báo giá</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theo dõi dự án -->
+        <div class="col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Theo Dõi Dự Án</h5>
+                    <p class="card-text">Theo dõi tiến độ của các dự án.</p>
+                    <a href="/Consulting_Staff/TrackProject" class="btn btn-primary">Theo dõi dự án</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

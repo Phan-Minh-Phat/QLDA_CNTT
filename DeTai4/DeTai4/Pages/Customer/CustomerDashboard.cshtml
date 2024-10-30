@@ -1,0 +1,87 @@
+﻿@page
+@model DeTai4.Pages.Customer.CustomerDashboardModel
+@{
+    ViewData["Title"] = "Khách Hàng";
+}
+
+<div class="container-fluid bg-secondary text-center py-5" style="background-color: #6c757d;">
+    <h1 class="display-4" style="font-size: 3rem; color: #1c1e21; font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);">
+        Chào Mừng Khách Hàng
+    </h1>
+    <p class="lead" style="color: #2c2f33; font-weight: 500;">
+        Chào mừng bạn đến với công ty của chúng tôi. Hãy gửi yêu cầu hoặc quản lý các dịch vụ tại đây.
+    </p>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Card: Gửi Yêu Cầu Thi Công -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Gửi Yêu Cầu Thi Công</h5>
+                    <p class="card-text">Gửi yêu cầu thi công hồ cá Koi nhanh chóng và dễ dàng.</p>
+                    <a href="/Customer/SubmitProjectRequest" class="btn btn-primary">Gửi yêu cầu</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Theo Dõi Tiến Độ -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Theo Dõi Tiến Độ</h5>
+                    <p class="card-text">Kiểm tra tiến độ thi công dự án hồ cá của bạn.</p>
+                    <a href="/Customer/TrackProjectProgress" class="btn btn-primary">Theo dõi</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Đặt Dịch Vụ Bảo Dưỡng -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Đặt Dịch Vụ Bảo Dưỡng</h5>
+                    <p class="card-text">Đặt dịch vụ bảo dưỡng hồ cá một cách tiện lợi.</p>
+                    <a href="/Customer/BookMaintenanceService" class="btn btn-primary">Đặt dịch vụ</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Thanh Toán Trực Tuyến -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Thanh Toán Trực Tuyến</h5>
+                    <p class="card-text">Thanh toán các dịch vụ trực tuyến nhanh chóng và an toàn.</p>
+                    <a href="/Customer/OnlinePayment" class="btn btn-primary">Thanh toán</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Quản Lý Đơn Hàng -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Quản Lý Đơn Hàng</h5>
+                    <p class="card-text">Xem và quản lý tài khoản và đơn hàng của bạn.</p>
+                    <a href="/Customer/ManageOrders" class="btn btn-primary">Quản lý</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Gửi Đánh Giá và Phản Hồi -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Gửi Đánh Giá và Phản Hồi</h5>
+                    <p class="card-text">Gửi đánh giá và phản hồi để giúp chúng tôi cải thiện dịch vụ.</p>
+                    <a href="/Customer/SubmitFeedback" class="btn btn-primary">Gửi phản hồi</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

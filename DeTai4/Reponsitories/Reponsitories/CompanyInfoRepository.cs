@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeTai4.Repositories.Entities;
+using DeTai4.Reponsitories.Repositories.Entities;
 using DeTai4.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,9 +8,9 @@ namespace DeTai4.Repositories.Implementations
 {
     public class CompanyInfoRepository : ICompanyInfoRepository
     {
-        private readonly DbContext _context;
+        private readonly DeTai4Context _context;
 
-        public CompanyInfoRepository(DbContext context)
+        public CompanyInfoRepository(DeTai4Context context)
         {
             _context = context;
         }

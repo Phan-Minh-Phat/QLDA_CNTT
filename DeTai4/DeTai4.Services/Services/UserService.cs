@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeTai4.Repositories.Entities;
+using DeTai4.Reponsitories.Repositories.Entities;
 using DeTai4.Repositories.Interfaces;
 using DeTai4.Services.Interfaces;
 
@@ -46,6 +46,33 @@ namespace DeTai4.Services.Implementations
         {
             // Perform any additional business logic or validation before deleting the user
             await _userRepository.DeleteUserAsync(userId);
+        }
+
+        public async Task<bool> ValidateUserAsync(string username, string password)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+            if (user != null)
+            {
+                return VerifyPassword(user.PasswordHash, password);
+            }
+            return false;
+        }
+
+        public async Task<bool> CheckUserExistsAsync(string username)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+            return user != null;
+        }
+        private string HashPassword(string password)
+        {
+            // Thực hiện mã hóa mật khẩu
+            return password; // Cần thay thế bằng hàm mã hóa mạnh hơn trong thực tế
+        }
+
+        private bool VerifyPassword(string storedHash, string enteredPassword)
+        {
+            // Kiểm tra mật khẩu hash (ví dụ: sử dụng bcrypt hoặc SHA-256)
+            return storedHash == enteredPassword;
         }
     }
 }

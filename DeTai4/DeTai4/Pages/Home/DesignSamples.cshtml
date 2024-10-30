@@ -1,0 +1,73 @@
+﻿@page
+@model DesignSamplesModel
+@{
+    ViewData["Title"] = "Mẫu Thiết Kế Hồ Cá Koi";
+}
+
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">Các Mẫu Thiết Kế Hồ Cá Koi</h4>
+        <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+            <li class="breadcrumb-item"><a href="/Home/Home">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="/Home/CompanyInfo">Giới Thiệu</a></li>
+            <li class="breadcrumb-item active text-secondary"><a href="/Home/Blog" class="text-secondary">Blog</a></li>
+        </ol>    
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- Additional Information Section -->
+<div class="container mt-5">
+    <p class="text-center mt-4">
+        Với sự duyên dáng, tuổi thọ và màu sắc tuyệt đẹp của cá Koi, thật dễ dàng để biết lý do tại sao những khu vườn được thiết kế theo phong cách Nhật Bản không thể thiếu hồ cá Koi.
+        Thiết kế hồ cá Koi đẹp trong vườn không những mang lại vẻ đẹp thanh bình, may mắn và tài lộc mà còn mang vẻ đẹp thẩm mỹ riêng cho không gian nhà ở của gia chủ.
+    </p>
+    <p class="text-center mt-4">
+        Khi xây dựng hồ cá Koi, tùy thuộc vào không gian và diện tích sân vườn để xác định các thông số kỹ thuật độc đáo trong sân, tăng cường không gian cảnh quan cho gia chủ.
+        Hãy để đội ngũ kỹ sư nhiều năm kinh nghiệm thiết kế thi công hồ cá Koi nhiều dự án lớn nhỏ, cam kết sẽ mang lại cho gia chủ một sản phẩm chất lượng, độc đáo.
+    </p>
+</div>
+
+<!-- Design Samples Section -->
+<div class="container mt-5">
+    @if (Model.Designs != null && Model.Designs.Count > 0)
+    {
+        <div class="row g-5">
+            @foreach (var design in Model.Designs)
+            {
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="project-item">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="project-img">
+                                    <img src="@design.ImageUrl" class="img-fluid w-100 pt-3 ps-3" alt="@design.DesignName">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="project-content mb-4">
+                                    <p class="fs-5 text-secondary mb-2">Thiết Kế Hồ Cá Koi</p>
+                                    <a href="#" class="h4">@design.DesignName</a>
+                                    <p class="mb-0 mt-3">@design.Description</p>
+                                    <p class="mt-3">
+                                        <strong>Giá:</strong> @design.Cost.ToString("C")
+                                    </p>
+                                </div>
+                                <a class="btn btn-primary py-2 px-4" href="#">Xem Chi Tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-12 text-center wow fadeInUp mt-5" data-wow-delay="0.2s">
+            <a class="btn btn-secondary py-3 px-5" href="#">Xem Thêm Mẫu Thiết Kế</a>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center mt-5">
+            Không tìm thấy mẫu thiết kế nào.
+        </div>
+    }
+</div>

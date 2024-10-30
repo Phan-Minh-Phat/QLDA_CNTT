@@ -1,8 +1,7 @@
-﻿using DeTai4.Repositories.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace DeTai4.Entities;
+namespace DeTai4.Reponsitories.Repositories.Entities;
 
 public partial class Feedback
 {

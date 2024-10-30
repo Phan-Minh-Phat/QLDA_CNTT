@@ -1,4 +1,4 @@
-﻿using DeTai4.Repositories.Entities;
+﻿using DeTai4.Reponsitories.Repositories.Entities;
 using DeTai4.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -41,6 +41,11 @@ namespace DeTai4.Repositories.Implementations
         // Thêm nhân viên mới
         public async Task AddStaffAsync(Staff staff)
         {
+            var user = await _context.Users.FindAsync(staff.UserId);
+            if (user != null)
+            {
+                staff.FullName = user.FullName;
+            }
             await _context.Staff.AddAsync(staff);
             await _context.SaveChangesAsync();
         }
@@ -48,6 +53,11 @@ namespace DeTai4.Repositories.Implementations
         // Cập nhật thông tin nhân viên
         public async Task UpdateStaffAsync(Staff staff)
         {
+            var user = await _context.Users.FindAsync(staff.UserId);
+            if (user != null)
+            {
+                staff.FullName = user.FullName;
+            }
             _context.Staff.Update(staff);
             await _context.SaveChangesAsync();
         }

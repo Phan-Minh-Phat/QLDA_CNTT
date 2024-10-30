@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DeTai4.Repositories.Entities;
+namespace DeTai4.Reponsitories.Repositories.Entities;
 
 public partial class Project
 {
@@ -9,11 +9,13 @@ public partial class Project
 
     public int? CustomerId { get; set; }
 
+
     public int? DesignId { get; set; }
 
     public string? ProjectName { get; set; }
 
     public int? StaffId { get; set; }
+    public int? UserId { get; set; }
 
     public DateTime? StartDate { get; set; }
 
@@ -21,11 +23,14 @@ public partial class Project
 
     public string? Status { get; set; }
 
+    public string? RequestDetails { get; set; }
+
     public virtual Customer? Customer { get; set; }
 
     public virtual Design? Design { get; set; }
 
     public virtual Staff? Staff { get; set; }
+    public virtual User? User { get; set; }
 
     public virtual ICollection<Staff> StaffNavigation { get; set; } = new List<Staff>();
 }

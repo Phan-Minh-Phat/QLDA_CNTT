@@ -1,4 +1,4 @@
-﻿using DeTai4.Repositories.Entities;
+﻿using DeTai4.Reponsitories.Repositories.Entities;
 using DeTai4.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

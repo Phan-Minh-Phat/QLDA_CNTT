@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using DeTai4.Repositories.Interfaces;
+using DeTai4.Reponsitories.Repositories.Entities;
+using DeTai4.Services.Interfaces;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DeTai4.Repositories;
-using DeTai4.Repositories.Entities;
 
-namespace DeTai4.Services
+namespace DeTai4.Services.Implementations
 {
     public class ProjectService : IProjectService
     {
@@ -26,20 +29,29 @@ namespace DeTai4.Services
 
         public async Task CreateProjectAsync(Project project)
         {
-            // Business logic for creating a project can be added here
+            if (project == null) throw new ArgumentNullException(nameof(project));
+
             await _projectRepository.AddProjectAsync(project);
         }
 
         public async Task UpdateProjectAsync(Project project)
         {
-            // Business logic for updating a project can be added here
             await _projectRepository.UpdateProjectAsync(project);
         }
 
         public async Task DeleteProjectAsync(int projectId)
         {
-            // Business logic for deleting a project can be added here
             await _projectRepository.DeleteProjectAsync(projectId);
+        }
+
+        public async Task<IEnumerable<Project>> GetPendingProjectsAsync()
+        {
+            return await _projectRepository.GetPendingProjectsAsync();
+        }
+
+        public async Task<IEnumerable<Project>> GetPendingProjectsForStaffAsync(int staffId)
+        {
+            return await _projectRepository.GetPendingProjectsAsync();
         }
     }
 }

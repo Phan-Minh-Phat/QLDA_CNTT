@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DeTai4.Repositories.Entities;
+using DeTai4.Reponsitories.Repositories.Entities;
 using DeTai4.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +9,9 @@ namespace DeTai4.Repositories.Implementations
 {
     public class UserRepository : IUserRepository
     {
-        private readonly DbContext _context;
+        private readonly DeTai4Context _context;
 
-        public UserRepository(DbContext context)
+        public UserRepository(DeTai4Context context)
         {
             _context = context;
         }

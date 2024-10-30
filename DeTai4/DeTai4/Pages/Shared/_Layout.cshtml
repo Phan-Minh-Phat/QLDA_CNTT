@@ -48,147 +48,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto pt-2 pt-lg-0">
-                    <!-- Dropdown Trang Chủ -->
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Trang Chủ</a>
-                        <div class="dropdown-menu bg-light border-0 m-0">
-                            <a asp-page="/CompanyInfo" class="dropdown-item">Thông Tin Công Ty</a>
-                            <a asp-page="/DesignSamples" class="dropdown-item">Mẫu Thiết Kế Hồ Cá Koi</a>
-                            <a asp-page="/Projects" class="dropdown-item">Dự Án</a>
-                            <a asp-page="/Blog" class="dropdown-item">Blog</a>
-                        </div>
-                    </div>
-
-                    <!-- Customer Pages Dropdown -->
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Khách Hàng</a>
-                        <div class="dropdown-menu bg-light border-0 m-0">
-                            <a asp-page="/Customer/CustomerRegistration" class="dropdown-item">Đăng Ký</a>
-                            <a asp-page="/Customer/Login" class="dropdown-item">Đăng Nhập</a>
-                            <a asp-page="/Customer/SubmitProjectRequest" class="dropdown-item">Yêu Cầu Thi Công</a>
-                            <a asp-page="/Customer/TrackProjectProgress" class="dropdown-item">Theo Dõi Tiến Độ</a>
-                            <a asp-page="/Customer/BookMaintenanceService" class="dropdown-item">Đặt Dịch Vụ Bảo Dưỡng</a>
-                            <a asp-page="/Customer/OnlinePayment" class="dropdown-item">Thanh Toán Trực Tuyến</a>
-                            <a asp-page="/Customer/ManageOrders" class="dropdown-item">Quản Lý Đơn Hàng</a>
-                            <a asp-page="/Customer/SubmitFeedback" class="dropdown-item">Gửi Phản Hồi</a>
-                        </div>
-                    </div>
-
-                    <!-- Consulting Staff Pages Dropdown -->
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Nhân Viên Tư Vấn</a>
-                        <div class="dropdown-menu bg-light border-0 m-0">
-                            <a asp-page="/ConsultingStaff/ManageCustomerRequests" class="dropdown-item">Tiếp Nhận Yêu Cầu</a>
-                            <a asp-page="/ConsultingStaff/ProvideConsultation" class="dropdown-item">Tư Vấn Khách Hàng</a>
-                            <a asp-page="/ConsultingStaff/CreateQuotation" class="dropdown-item">Lập Báo Giá</a>
-                            <a asp-page="/ConsultingStaff/TrackProject" class="dropdown-item">Theo Dõi Dự Án</a>
-                        </div>
-                    </div>
-
-                    <!-- Design Staff Pages Dropdown -->
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Nhân Viên Thiết Kế</a>
-                        <div class="dropdown-menu bg-light border-0 m-0">
-                            <a asp-page="/DesignStaff/CreateDesign" class="dropdown-item">Tạo Mẫu Thiết Kế</a>
-                            <a asp-page="/DesignStaff/ManageDesigns" class="dropdown-item">Quản Lý Hồ Sơ Thiết Kế</a>
-                            <a asp-page="/DesignStaff/UploadDesign" class="dropdown-item">Cập Nhật Thiết Kế</a>
-                            <a asp-page="/DesignStaff/CoordinateWithConstruction" class="dropdown-item">Phối Hợp Thi Công</a>
-                        </div>
-                    </div>
-
-                    <!-- Construction Staff Pages Dropdown -->
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Nhân Viên Thi Công</a>
-                        <div class="dropdown-menu bg-light border-0 m-0">
-                            <a asp-page="/ConstructionStaff/ReceiveProjectInfo" class="dropdown-item">Nhận Thông Tin Dự Án</a>
-                            <a asp-page="/ConstructionStaff/ManageConstructionProgress" class="dropdown-item">Quản Lý Tiến Độ Thi Công</a>
-                            <a asp-page="/ConstructionStaff/HandOverProject" class="dropdown-item">Bàn Giao Công Trình</a>
-                            <a asp-page="/ConstructionStaff/ProvideMaintenanceService" class="dropdown-item">Cung Cấp Dịch Vụ Bảo Dưỡng</a>
-                            <a asp-page="/ConstructionStaff/RecordMaintenanceResult" class="dropdown-item">Ghi Nhận Kết Quả Bảo Dưỡng</a>
-                        </div>
-                    </div>
-
-                    <!-- Manager Pages Dropdown -->
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Quản Lý</a>
-                        <div class="dropdown-menu bg-light border-0 m-0">
-                            <a asp-page="/Manager/ManageStaff" class="dropdown-item">Quản Lý Nhân Viên</a>
-                            <a asp-page="/Manager/ManageProjects" class="dropdown-item">Quản Lý Dự Án</a>
-                            <a asp-page="/Manager/ManageMaintenanceServices" class="dropdown-item">Quản Lý Dịch Vụ Bảo Dưỡng</a>
-                            <a asp-page="/Manager/ManagePricingAndPromotions" class="dropdown-item">Quản Lý Giá & Khuyến Mãi</a>
-                            <a asp-page="/Manager/ViewReportsAndStatistics" class="dropdown-item">Báo Cáo & Thống Kê</a>
-                        </div>
-                    </div>
-
-                    <!-- Nút tìm kiếm đã được chuyển vào navbar -->
-                    <div class="nav-item">
-                        <button class="btn btn-primary py-2 px-3" data-bs-toggle="modal" data-bs-target="#searchModal">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+                    <a asp-page="/Home/TrangChu" class="nav-item nav-link">Trang Chủ</a>
+                    <a asp-page="/Home/CompanyInfo" class="nav-item nav-link">Giới Thiệu</a>
+                    <a asp-page="/User/Register" class="nav-item nav-link">Yêu Cầu Thi Công</a>
+               
+                    <a asp-page="/Home/Blog" class="nav-item nav-link">Blog</a>
+                    <a asp-page="/Home/DesignSamples" class="nav-item nav-link">Mẫu Thiết Kế</a>
+                    <a asp-page="/User/Login" class="nav-item nav-link">Đăng Ký/Đăng Nhập</a>
                 </div>
             </div>
         </nav>
     </div>
- 
     <!-- Navigation End -->
-    <!-- Carousel Start -->
-    <div class="container-fluid overflow-hidden px-0">
-        <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
-            <ol class="carousel-indicators fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1s" style="animation-delay: 1s;">
-                <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></li>
-                <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
-                <li data-bs-target="#carouselId" data-bs-slide-to="2" aria-label="Third slide"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
-                    <img src="https://www.hancorp.com.vn/wp-content/uploads/2020/12/thi-cong-ho-ca-koi-3.jpg" class="img-fluid w-100" alt="First slide" />
-                    <div class="carousel-caption">
-                        <p class="text-uppercase text-secondary fs-4 mb-0 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1s" style="animation-delay: 1s;">Thi Công Hồ Cá Koi</p>
-                        <h1 class="display-1 text-capitalize text-white mb-4 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.3s" style="animation-delay: 1.3s;">Chúng tôi tạo nên không gian sống xanh</h1>
-                        <p class="mb-5 fs-5 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.5s" style="animation-delay: 1.5s;">Với đội ngũ chuyên nghiệp, chúng tôi thi công hồ cá Koi từ nhỏ đến lớn, đáp ứng mọi nhu cầu của bạn.</p>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-primary d-flex py-3 px-5 me-2 flex-shrink-0 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.5s" style="animation-delay: 1.7s;" href="#">Đăng Ký Ngay</a>
-                            <a class="btn btn-secondary d-inline-block py-3 px-5 ms-2 flex-shrink-0 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.5s" style="animation-delay: 1.7s;" href="#">Xem Chi Tiết</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://sanvuonadong.vn/wp-content/uploads/2020/10/mau-ho-ca-koi-goc-san-vuon-01-san-vuon-a-dong.jpg" class="img-fluid w-100" alt="Second slide" />
-                    <div class="carousel-caption">
-                        <p class="text-uppercase text-secondary fs-4 mb-0 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1s" style="animation-delay: 1s;">Thi Công Hồ Cá Koi</p>
-                        <h1 class="display-1 text-capitalize text-white mb-4 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.3s" style="animation-delay: 1.3s;">Không gian sân vườn hoàn hảo</h1>
-                        <p class="mb-5 fs-5 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.5s" style="animation-delay: 1.5s;">Tạo không gian thư giãn với hồ cá Koi tinh tế, phù hợp cho sân vườn nhà bạn.</p>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-primary d-flex py-3 px-5 me-2 flex-shrink-0 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.5s" style="animation-delay: 1.7s;" href="#">Đăng Ký Ngay</a>
-                            <a class="btn btn-secondary d-inline-block py-3 px-5 ms-2 flex-shrink-0 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.5s" style="animation-delay: 1.7s;" href="#">Xem Chi Tiết</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://sanvuontrucxinh.com/upload/H%E1%BB%93%20C%C3%A1%20Koi%20%C4%90%E1%BA%B9p/ho_ca_koi_san_vuon5.jpg" class="img-fluid w-100" alt="Third slide" />
-                    <div class="carousel-caption">
-                        <p class="text-uppercase text-secondary fs-4 mb-0 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1s" style="animation-delay: 1s;">Thi Công Hồ Cá Koi</p>
-                        <h1 class="display-1 text-capitalize text-white mb-4 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.3s" style="animation-delay: 1.3s;">Thiết kế theo yêu cầu</h1>
-                        <p class="mb-5 fs-5 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.5s" style="animation-delay: 1.5s;">Thiết kế hồ cá Koi theo diện tích và yêu cầu riêng của bạn, mang đến sự độc đáo và sáng tạo.</p>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-primary d-flex py-3 px-5 me-2 flex-shrink-0 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.5s" style="animation-delay: 1.7s;" href="#">Đăng Ký Ngay</a>
-                            <a class="btn btn-secondary d-inline-block py-3 px-5 ms-2 flex-shrink-0 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="1.5s" style="animation-delay: 1.7s;" href="#">Xem Chi Tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon btn-lg-square fadeInLeft animate__animated" aria-hidden="true" data-animation="fadeInLeft" data-delay="1.1s" style="animation-delay: 1.3s;"><i class="fas fa-chevron-left fa-2x"></i></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
-                <span class="carousel-control-next-icon btn-lg-square fadeInRight animate__animated" aria-hidden="true" data-animation="fadeInRight" data-delay="1.1s" style="animation-delay: 1.3s;"><i class="fas fa-chevron-right fa-2x"></i></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-    <!-- Carousel End -->
     <!-- Render body content here -->
     <div class="content-wrapper">
         @RenderBody()

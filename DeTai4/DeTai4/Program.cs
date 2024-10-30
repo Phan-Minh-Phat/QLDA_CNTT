@@ -1,18 +1,22 @@
-using DeTai4.Repositories;
-using DeTai4.Repositories.Entities;
+﻿using DeTai4.Repositories;
+using DeTai4.Reponsitories.Repositories.Entities;
 using DeTai4.Repositories.Implementations;
 using DeTai4.Repositories.Interfaces;
 using DeTai4.Services;
 using DeTai4.Services.Implementations;
 using DeTai4.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<DeTai4Context>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("deTai4")));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("deTai4"),
+        sqlOptions => sqlOptions.MigrationsAssembly("DeTai4.Reponsitories")
+        )
+ );
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>(); 
 builder.Services.AddScoped<IDesignRepository, DesignRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
@@ -30,7 +34,19 @@ builder.Services.AddScoped<IStaffService, StaffService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICompanyInfoRepository, CompanyInfoRepository>();
+builder.Services.AddScoped<ICompanyInfoService, CompanyInfoService>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options =>
+        {
+            options.LoginPath = "/User/Login";
+            options.AccessDeniedPath = "/User/AccessDenied";
+        });
+
+builder.Services.AddSession();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,9 +57,10 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapRazorPages();
+
 
 app.Run();

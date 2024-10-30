@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DeTai4.Repositories.Entities;
+namespace DeTai4.Reponsitories.Repositories.Entities;
 
 public partial class Invoice
 {

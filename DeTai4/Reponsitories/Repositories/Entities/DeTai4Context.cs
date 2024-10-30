@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using DeTai4.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DeTai4.Repositories.Entities;
+namespace DeTai4.Reponsitories.Repositories.Entities;
 
 public partial class DeTai4Context : DbContext
 {
@@ -15,7 +14,6 @@ public partial class DeTai4Context : DbContext
         : base(options)
     {
     }
-
     public virtual DbSet<Blog> Blogs { get; set; }
 
     public virtual DbSet<CompanyInfo> CompanyInfos { get; set; }
@@ -48,28 +46,15 @@ public partial class DeTai4Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Blog>(entity =>
-        {
-            entity.HasKey(e => e.PostId).HasName("PK__Blog__AA126018C0A6E823");
-
-            entity.ToTable("Blog");
-
-            entity.Property(e => e.CreatedDate)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Summary).HasMaxLength(500);
-            entity.Property(e => e.Title).HasMaxLength(200);
-        });
-
         modelBuilder.Entity<CompanyInfo>(entity =>
         {
-            entity.HasKey(e => e.CompanyId).HasName("PK__CompanyI__2D971CAC032DEBE1");
+            entity.HasKey(e => e.CompanyId).HasName("PK__CompanyI__2D971CAC8CABD8BC");
 
             entity.ToTable("CompanyInfo");
 
-            entity.Property(e => e.Address).HasMaxLength(250);
+            entity.Property(e => e.Address).HasMaxLength(200);
             entity.Property(e => e.CompanyName).HasMaxLength(100);
-            entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.PhoneNumber).HasMaxLength(15);
         });
 
@@ -78,6 +63,8 @@ public partial class DeTai4Context : DbContext
             entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64D89347B859");
 
             entity.ToTable("Customer");
+
+            entity.HasIndex(e => e.UserId, "IX_Customer_UserId");
 
             entity.Property(e => e.Address).HasMaxLength(255);
             entity.Property(e => e.PhoneNumber).HasMaxLength(15);
@@ -106,6 +93,8 @@ public partial class DeTai4Context : DbContext
 
             entity.ToTable("Feedback");
 
+            entity.HasIndex(e => e.OrderId, "IX_Feedback_OrderId");
+
             entity.Property(e => e.Comment).HasMaxLength(255);
             entity.Property(e => e.FeedbackDate).HasColumnType("datetime");
 
@@ -119,6 +108,8 @@ public partial class DeTai4Context : DbContext
             entity.HasKey(e => e.InvoiceId).HasName("PK__Invoice__D796AAB50D581F7C");
 
             entity.ToTable("Invoice");
+
+            entity.HasIndex(e => e.OrderId, "IX_Invoice_OrderId");
 
             entity.Property(e => e.PaymentDate).HasColumnType("datetime");
             entity.Property(e => e.PaymentMethod).HasMaxLength(50);
@@ -135,6 +126,10 @@ public partial class DeTai4Context : DbContext
             entity.HasKey(e => e.MaintenanceResultId).HasName("PK__Maintena__B7A4A728F14F20C9");
 
             entity.ToTable("MaintenanceResult");
+
+            entity.HasIndex(e => e.ServiceId, "IX_MaintenanceResult_ServiceId");
+
+            entity.HasIndex(e => e.StaffId, "IX_MaintenanceResult_StaffId");
 
             entity.Property(e => e.ResultDate).HasColumnType("datetime");
             entity.Property(e => e.ResultDescription).HasMaxLength(255);
@@ -154,6 +149,10 @@ public partial class DeTai4Context : DbContext
 
             entity.ToTable("Order");
 
+            entity.HasIndex(e => e.CustomerId, "IX_Order_CustomerId");
+
+            entity.HasIndex(e => e.ServiceId, "IX_Order_ServiceId");
+
             entity.Property(e => e.OrderDate).HasColumnType("datetime");
             entity.Property(e => e.Status).HasMaxLength(50);
             entity.Property(e => e.TotalCost).HasColumnType("decimal(18, 2)");
@@ -172,6 +171,12 @@ public partial class DeTai4Context : DbContext
             entity.HasKey(e => e.ProjectId).HasName("PK__Project__761ABEF054011FD6");
 
             entity.ToTable("Project");
+
+            entity.HasIndex(e => e.CustomerId, "IX_Project_CustomerId");
+
+            entity.HasIndex(e => e.DesignId, "IX_Project_DesignId");
+
+            entity.HasIndex(e => e.StaffId, "IX_Project_StaffId");
 
             entity.Property(e => e.EndDate).HasColumnType("datetime");
             entity.Property(e => e.ProjectName).HasMaxLength(100);
@@ -205,6 +210,7 @@ public partial class DeTai4Context : DbContext
                     {
                         j.HasKey("ProjectId", "StaffId").HasName("PK__ProjectS__1F77F4412B76BD16");
                         j.ToTable("ProjectStaff");
+                        j.HasIndex(new[] { "StaffId" }, "IX_ProjectStaff_StaffId");
                     });
         });
 
@@ -245,12 +251,15 @@ public partial class DeTai4Context : DbContext
                     {
                         j.HasKey("ServiceId", "StaffId").HasName("PK__ServiceS__AC76FABB2C901DAC");
                         j.ToTable("ServiceStaff");
+                        j.HasIndex(new[] { "StaffId" }, "IX_ServiceStaff_StaffId");
                     });
         });
 
         modelBuilder.Entity<Staff>(entity =>
         {
             entity.HasKey(e => e.StaffId).HasName("PK__Staff__96D4AB17C95B522F");
+
+            entity.HasIndex(e => e.UserId, "IX_Staff_UserId");
 
             entity.Property(e => e.Role).HasMaxLength(50);
 
