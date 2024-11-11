@@ -1,26 +1,19 @@
 ﻿@page
-@model DeTai4.Pages.Design_Staff.CreateDesignModel
+@model DeTai4.Pages.Design_Staff.UploadDesignModel
 @{
-    ViewData["Title"] = "Create Design";
+    ViewData["Title"] = "Upload Design";
 }
 
 <div class="container mt-4">
-    <h2 class="text-center mb-4">Create New Design</h2>
+    <h2 class="text-center mb-4">Upload Design</h2>
 
-    <!-- Form tạo thiết kế mới -->
-    <form method="post">
+    <!-- Form tải lên thiết kế -->
+    <form method="post" enctype="multipart/form-data">
         <!-- Input tên thiết kế -->
         <div class="mb-3">
             <label for="DesignName" class="form-label">Design Name</label>
             <input type="text" class="form-control" id="DesignName" asp-for="NewDesign.DesignName" required />
             <span asp-validation-for="NewDesign.DesignName" class="text-danger"></span>
-        </div>
-
-        <!-- Input giá của thiết kế -->
-        <div class="mb-3">
-            <label for="Price" class="form-label">Price</label>
-            <input type="number" class="form-control" id="Price" asp-for="NewDesign.Cost" required />
-            <span asp-validation-for="NewDesign.Cost" class="text-danger"></span>
         </div>
 
         <!-- Input mô tả thiết kế -->
@@ -30,8 +23,15 @@
             <span asp-validation-for="NewDesign.Description" class="text-danger"></span>
         </div>
 
+        <!-- Input file tải lên -->
+        <div class="mb-3">
+            <label for="ImageFile" class="form-label">Upload Image</label>
+            <input type="file" class="form-control" id="ImageFile" asp-for="NewDesign.ImageUrl" accept="image/*" required />
+            <span asp-validation-for="NewDesign.ImageUrl" class="text-danger"></span>
+        </div>
+
         <!-- Nút gửi form -->
-        <button type="submit" class="btn btn-primary">Create Design</button>
+        <button type="submit" class="btn btn-primary">Upload Design</button>
     </form>
 
     <!-- Hiển thị thông báo lỗi nếu có -->
