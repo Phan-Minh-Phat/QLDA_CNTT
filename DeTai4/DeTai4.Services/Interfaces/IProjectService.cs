@@ -13,6 +13,6 @@ namespace DeTai4.Services
         Task DeleteProjectAsync(int projectId);
         Task<IEnumerable<Project>> GetPendingProjectsAsync();
         Task<IEnumerable<Project>> GetPendingProjectsForStaffAsync(int staffId);
-
+        Task AddProjectAsync(Project project);
     }
 }
