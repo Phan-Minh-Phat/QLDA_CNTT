@@ -1,0 +1,51 @@
+﻿@page
+@model DeTai4.Pages.Customer.OnlinePaymentModel
+@{
+    ViewData["Title"] = "Thanh Toán Trực Tuyến";
+}
+
+<div class="container mt-4">
+    thêm using cho các thành phần bị sai
+    <h2 class="text-center">@ViewData["Title"]</h2>
+    <p class="text-center">Vui lòng nhập thông tin thanh toán của bạn</p>
+
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Payment.CardNumber">Số Thẻ</label>
+            <input asp-for="Payment.CardNumber" class="form-control" />
+            <span asp-validation-for="Payment.CardNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Payment.CardHolderName">Tên Chủ Thẻ</label>
+            <input asp-for="Payment.CardHolderName" class="form-control" />
+            <span asp-validation-for="Payment.CardHolderName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Payment.ExpirationDate">Ngày Hết Hạn</label>
+            <input asp-for="Payment.ExpirationDate" type="date" class="form-control" />
+            <span asp-validation-for="Payment.ExpirationDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Payment.CVV">Mã CVV</label>
+            <input asp-for="Payment.CVV" class="form-control" />
+            <span asp-validation-for="Payment.CVV" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Payment.Amount">Số Tiền</label>
+            <input asp-for="Payment.Amount" class="form-control" />
+            <span asp-validation-for="Payment.Amount" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Thanh Toán</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
