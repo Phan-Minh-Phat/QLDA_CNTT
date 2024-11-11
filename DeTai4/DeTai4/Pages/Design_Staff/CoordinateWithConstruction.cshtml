@@ -1,0 +1,32 @@
+﻿@page
+@model DeTai4.Pages.Design_Staff.CoordinateWithConstructionModel
+@{
+    ViewData["Title"] = "Phối hợp với nhân viên thi công";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="SelectedDesignId">Chọn mẫu thiết kế:</label>
+        <select asp-for="SelectedDesignId" asp-items="@(new SelectList(Model.AllDesigns, "DesignId", "DesignName"))" class="form-control" required>
+            <option value="">Chọn mẫu thiết kế</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="SelectedStaffId">Chọn nhân viên thi công:</label>
+        <select asp-for="SelectedStaffId" asp-items="@(new SelectList(Model.AllStaff, "StaffId", "FullName"))" class="form-control" required>
+            <option value="">Chọn nhân viên thi công</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Phối hợp</button>
+
+    @if (ViewData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger mt-2">
+            @ViewData["ErrorMessage"]
+        </div>
+    }
+</form>
