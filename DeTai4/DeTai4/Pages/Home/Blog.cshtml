@@ -1,0 +1,31 @@
+﻿@page
+@model DeTai4.Pages.Home.BlogModel
+@{
+    ViewData["Title"] = "Blog";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">Hướng Dẫn và Mẹo Chăm Sóc Hồ Cá</h2>
+
+    @if (Model.BlogPosts != null && Model.BlogPosts.Count > 0)
+    {
+        <div class="row">
+            @foreach (var post in Model.BlogPosts)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@post.Title</h5>
+                            <p class="card-text">@post.Content.Substring(0, 100)...</p>
+                            <small class="text-muted">Tác giả: @post.Author</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-center text-muted">Không có bài viết nào.</p>
+    }
+</div>
