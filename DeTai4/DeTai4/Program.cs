@@ -17,6 +17,8 @@ builder.Services.AddDbContext<DeTai4Context>(options =>
         sqlOptions => sqlOptions.MigrationsAssembly("DeTai4.Reponsitories")
         )
  );
+builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>(); 
 builder.Services.AddScoped<IDesignRepository, DesignRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
