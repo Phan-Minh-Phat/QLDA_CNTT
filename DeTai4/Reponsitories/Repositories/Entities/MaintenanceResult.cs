@@ -8,7 +8,7 @@ public partial class MaintenanceResult
     public int MaintenanceResultId { get; set; }
 
     public int? ServiceId { get; set; }
-
+    public int? ProjectId { get; set; }
     public int? StaffId { get; set; }
 
     public string? ResultDescription { get; set; }
@@ -18,4 +18,5 @@ public partial class MaintenanceResult
     public virtual Service? Service { get; set; }
 
     public virtual Staff? Staff { get; set; }
+    public virtual Project? Project { get; set; }
 }

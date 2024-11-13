@@ -1,4 +1,33 @@
 ﻿@page
 @model DeTai4.Pages.Consulting_Staff.TrackProjectModel
 @{
+    ViewData["Title"] = "Track Pending Projects";
 }
+
+<h1>Theo dõi dự án pending</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Mã Dự Án</th>
+            <th>Tên Dự Án</th>
+            <th>Ngày Bắt Đầu</th>
+            <th>Ngày Kết Thúc</th>
+            <th>Trạng Thái</th>
+            <th>Khách Hàng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model.PendingProjects)
+        {
+            <tr>
+                <td>@project.ProjectId</td>
+                <td>@project.ProjectName</td>
+                <td>@project.StartDate?.ToString("yyyy-MM-dd")</td>
+                <td>@project.EndDate?.ToString("yyyy-MM-dd")</td>
+                <td>@project.Status</td>
+                <td>@project.Customer?.FullName</td>
+            </tr>
+        }
+    </tbody>
+</table>

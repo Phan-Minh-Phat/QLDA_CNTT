@@ -1,51 +1,43 @@
 ﻿@page
 @model DeTai4.Pages.Design_Staff.CreateDesignModel
 @{
-    ViewData["Title"] = "Create Design";
+    ViewData["Title"] = "Tạo Mẫu Thiết Kế Mới";
 }
 
-<div class="container mt-4">
-    <h2 class="text-center mb-4">Create New Design</h2>
+<h1>Tạo Mẫu Thiết Kế Mới</h1>
 
-    <!-- Form tạo thiết kế mới -->
-    <form method="post">
-        <!-- Input tên thiết kế -->
-        <div class="mb-3">
-            <label for="DesignName" class="form-label">Design Name</label>
-            <input type="text" class="form-control" id="DesignName" asp-for="NewDesign.DesignName" required />
-            <span asp-validation-for="NewDesign.DesignName" class="text-danger"></span>
-        </div>
-
-        <!-- Input giá của thiết kế -->
-        <div class="mb-3">
-            <label for="Price" class="form-label">Price</label>
-            <input type="number" class="form-control" id="Price" asp-for="NewDesign.Cost" required />
-            <span asp-validation-for="NewDesign.Cost" class="text-danger"></span>
-        </div>
-
-        <!-- Input mô tả thiết kế -->
-        <div class="mb-3">
-            <label for="Description" class="form-label">Description</label>
-            <textarea class="form-control" id="Description" asp-for="NewDesign.Description" rows="3" required></textarea>
-            <span asp-validation-for="NewDesign.Description" class="text-danger"></span>
-        </div>
-
-        <!-- Nút gửi form -->
-        <button type="submit" class="btn btn-primary">Create Design</button>
-    </form>
-
-    <!-- Hiển thị thông báo lỗi nếu có -->
-    <div>
-        <h3 class="text-danger">
-            @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString()))
-            {
-                <text>@ViewData["ErrorMessage"]</text>
-            }
-        </h3>
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="alert alert-success" role="alert">
+        @Model.SuccessMessage
     </div>
-</div>
-
-@section Scripts {
-    @Html.PartialAsync("_ValidationScriptsPartial")
 }
 
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Design.DesignName">Tên Mẫu Thiết Kế</label>
+        <input asp-for="Design.DesignName" class="form-control" />
+        <span asp-validation-for="Design.DesignName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Design.Description">Mô Tả</label>
+        <textarea asp-for="Design.Description" class="form-control"></textarea>
+        <span asp-validation-for="Design.Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Design.ImageUrl">Đường Dẫn Hình Ảnh</label>
+        <input asp-for="Design.ImageUrl" class="form-control" />
+        <span asp-validation-for="Design.ImageUrl" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Design.Cost">Chi Phí</label>
+        <input asp-for="Design.Cost" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Design.Cost" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-page="/Design_Staff/DesignList" class="btn btn-secondary">Hủy</a>
+</form>

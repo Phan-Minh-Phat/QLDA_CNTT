@@ -12,6 +12,10 @@ namespace DeTai4.Repositories
         Task DeleteProjectAsync(int projectId);
         Task<IEnumerable<Project>> GetPendingProjectsAsync();
         Task<IEnumerable<Project>> GetPendingProjectsForStaffAsync(int staffId);
-
+        Task<IEnumerable<Project>> GetProjectsByCustomerIdAsync(int customerId);
+        Task<List<Project>> GetProjectsWithConstructionStaffAsync();
+        Task<IEnumerable<Project>> GetProjectsForStaffAsync(int staffId);
+        Task<IEnumerable<Project>> GetCompletedProjectsAsync();
+        Task AddMaintenanceResultAsync(MaintenanceResult maintenanceResult);
     }
 }

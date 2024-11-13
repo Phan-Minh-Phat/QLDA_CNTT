@@ -1,7 +1,7 @@
-﻿using DeTai4.Services.Interfaces;
-using DeTai4.Reponsitories.Repositories.Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using DeTai4.Services.Interfaces;
+using DeTai4.Reponsitories.Repositories.Entities;
 using System.Threading.Tasks;
 
 namespace DeTai4.Pages.Design_Staff
@@ -10,54 +10,37 @@ namespace DeTai4.Pages.Design_Staff
     {
         private readonly IDesignService _designService;
 
-        [BindProperty]
-        public Design NewDesign { get; set; }
-
-        // Constructor to inject service
         public CreateDesignModel(IDesignService designService)
         {
             _designService = designService;
-            // Khởi tạo NewDesign trong constructor để tránh lỗi "Non-nullable property must contain a non-null value"
-            NewDesign = new Design
-            {
-                DesignName = string.Empty, // Gán giá trị mặc định cho thuộc tính không nullable
-                Description = string.Empty,
-                Cost = 0m
-            };
         }
+
+        [BindProperty]
+        public Design Design { get; set; } = new Design();
+
+        [TempData]
+        public string SuccessMessage { get; set; } // Thông báo thành công
 
         public void OnGet()
         {
+            // Hiển thị form tạo mới
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // Kiểm tra xem ModelState có hợp lệ không
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                // Kiểm tra tên thiết kế (DesignName) không được rỗng
-                if (string.IsNullOrEmpty(NewDesign.DesignName))
-                {
-                    ModelState.AddModelError("NewDesign.DesignName", "Design Name cannot be empty.");
-                    return Page();
-                }
-
-                try
-                {
-                    // Thêm thiết kế mới vào cơ sở dữ liệu
-                    await _designService.AddDesignAsync(NewDesign);
-                    return RedirectToPage("/Design_Staff/ManageDesigns");
-                }
-                catch (Exception ex)
-                {
-                    // Xử lý lỗi nếu có
-                    ViewData["ErrorMessage"] = $"An error occurred: {ex.Message}";
-                    return Page();
-                }
+                return Page();
             }
 
-            return Page();
+            // Thêm thiết kế mới vào cơ sở dữ liệu
+            await _designService.AddDesignAsync(Design);
+
+            // Gán thông báo thành công vào TempData
+            SuccessMessage = "Bạn đã lưu mẫu thiết kế thành công";
+
+            // Chuyển hướng về trang hiện tại để hiển thị thông báo
+            return RedirectToPage("/Design_Staff/CreateDesign");
         }
     }
 }
-

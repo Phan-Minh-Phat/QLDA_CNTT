@@ -1,0 +1,43 @@
+﻿@page
+@model DeTai4.Pages.Construction_Staff.RecordMaintenanceResultModel
+@{
+    ViewData["Title"] = "Ghi nhận kết quả bảo dưỡng";
+}
+
+<h2>Ghi nhận kết quả bảo dưỡng</h2>
+
+@if (TempData.ContainsKey("SuccessMessage"))
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="SelectedProjectId">Chọn dự án đã hoàn thành:</label>
+        <select asp-for="SelectedProjectId" class="form-control" required>
+            <option value="">-- Chọn dự án --</option>
+            @foreach (var project in Model.CompletedProjects)
+            {
+                <option value="@project.ProjectId">@project.ProjectName</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="SelectedServiceId">Chọn dịch vụ bảo dưỡng:</label>
+        <select asp-for="SelectedServiceId" class="form-control" required>
+            <option value="">-- Chọn dịch vụ --</option>
+            @foreach (var service in Model.Services)
+            {
+                <option value="@service.ServiceId">@service.ServiceName</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="ResultDescription">Mô tả kết quả bảo dưỡng:</label>
+        <textarea asp-for="ResultDescription" class="form-control" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ghi nhận kết quả</button>
+</form>

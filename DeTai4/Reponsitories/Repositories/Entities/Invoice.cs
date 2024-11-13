@@ -16,6 +16,7 @@ public partial class Invoice
     public DateTime? PaymentDate { get; set; }
 
     public string? PaymentStatus { get; set; }
-
+    public int? CustomerId { get; set; }
     public virtual Order? Order { get; set; }
+    public virtual Customer? Customer { get; set; }
 }

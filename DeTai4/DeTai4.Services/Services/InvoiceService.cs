@@ -41,5 +41,10 @@ namespace DeTai4.Services
             // Business logic for deleting an invoice can be added here
             await _invoiceRepository.DeleteInvoiceAsync(invoiceId);
         }
+
+        public async Task<IEnumerable<Invoice>> GetInvoicesByCustomerIdAsync(int customerId)
+        {
+            return await _invoiceRepository.GetInvoicesByCustomerIdAsync(customerId);
+        }
     }
 }

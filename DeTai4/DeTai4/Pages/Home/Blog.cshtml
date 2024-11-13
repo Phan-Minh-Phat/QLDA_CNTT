@@ -1,11 +1,11 @@
 ﻿@page
 @model DeTai4.Pages.Home.BlogModel
 @{
-    ViewData["Title"] = "Blog";
+    ViewData["Title"] = "Hướng Dẫn & Mẹo Chăm Sóc Hồ Cá";
 }
 
-<div class="container mt-4">
-    <h2 class="text-center">Hướng Dẫn và Mẹo Chăm Sóc Hồ Cá</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">@ViewData["Title"]</h2>
 
     @if (Model.BlogPosts != null && Model.BlogPosts.Count > 0)
     {
@@ -16,8 +16,9 @@
                     <div class="card border-0 shadow-sm">
                         <div class="card-body">
                             <h5 class="card-title">@post.Title</h5>
-                            <p class="card-text">@post.Content.Substring(0, 100)...</p>
-                            <small class="text-muted">Tác giả: @post.Author</small>
+                            <p class="card-text">@post.Content</p> <!-- Hiển thị toàn bộ nội dung -->
+                            <small class="text-muted">Tác giả: @post.Author</small><br />
+                            <small class="text-muted">Ngày đăng: @post.CreatedDate.ToString("dd/MM/yyyy")</small>
                         </div>
                     </div>
                 </div>

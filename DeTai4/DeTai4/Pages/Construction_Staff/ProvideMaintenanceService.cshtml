@@ -1,4 +1,45 @@
 ﻿@page
 @model DeTai4.Pages.Construction_Staff.ProvideMaintenanceServiceModel
 @{
+    ViewData["Title"] = "Cung Cấp Dịch Vụ Bảo Dưỡng";
 }
+
+<h1>Cung Cấp Dịch Vụ Bảo Dưỡng</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="project">Chọn Dự Án Hoàn Thành</label>
+        <select id="project" asp-for="SelectedProjectId" class="form-control">
+            <option value="">-- Chọn Dự Án --</option>
+            @foreach (var project in Model.CompletedProjects)
+            {
+                <option value="@project.ProjectId">@project.ProjectName</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="service">Chọn Dịch Vụ Bảo Dưỡng</label>
+        <select id="service" asp-for="SelectedServiceId" class="form-control">
+            <option value="">-- Chọn Dịch Vụ --</option>
+            @foreach (var service in Model.Services)
+            {
+                <option value="@service.ServiceId">@service.ServiceName</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="resultDescription">Mô Tả Kết Quả</label>
+        <textarea id="resultDescription" asp-for="ResultDescription" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cung Cấp Dịch Vụ</button>
+</form>

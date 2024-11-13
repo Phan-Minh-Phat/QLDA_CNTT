@@ -1,48 +1,126 @@
+﻿using DeTai4.Reponsitories.Repositories.Entities;
+using DeTai4.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DeTai4.Services;
 
 namespace DeTai4.Pages.Customer
 {
     public class SubmitFeedbackModel : PageModel
     {
-        [BindProperty]
-        public required FeedbackViewModel Feedback { get; set; }
+        private readonly IOrderService _orderService;
+        private readonly ICustomerService _customerService;
+        private readonly IFeedbackService _feedbackService;
 
-        public void OnGet()
+        public SubmitFeedbackModel(IOrderService orderService, ICustomerService customerService, IFeedbackService feedbackService)
         {
-            // Initialize any required values or settings here
+            _orderService = orderService;
+            _customerService = customerService;
+            _feedbackService = feedbackService;
         }
 
-        public IActionResult OnPost()
+        [BindProperty]
+        public int SelectedOrderId { get; set; } // ID của đơn hàng được chọn
+
+        [BindProperty]
+        public int? Rating { get; set; } // Đánh giá (số sao)
+
+        [BindProperty]
+        public string? Comment { get; set; } // Bình luận
+
+        public bool IsFeedbackSubmitted { get; set; } // Để hiển thị thông báo sau khi gửi phản hồi
+
+        public List<Order> Orders { get; set; } = new List<Order>();
+        public DateTime FeedbackSubmissionTime { get; set; } // Thời gian gửi phản hồi
+
+        public async Task<IActionResult> OnGetAsync()
         {
-            if (!ModelState.IsValid)
+            // Lấy UserId từ Claims
+            if (!int.TryParse(User.FindFirst("UserId")?.Value, out int userId))
             {
-                // If validation fails, redisplay the form
+                ModelState.AddModelError("", "Không thể xác định UserId.");
                 return Page();
             }
 
-            // Process feedback (e.g., save to database, send an email, etc.)
+            // Lấy thông tin khách hàng dựa vào UserId
+            var customer = await _customerService.GetCustomerByUserIdAsync(userId);
+            if (customer == null)
+            {
+                ModelState.AddModelError("", "Không tìm thấy thông tin khách hàng.");
+                return Page();
+            }
 
-            TempData["SuccessMessage"] = "C?m ?n b?n ?� g?i ph?n h?i!";
-            return RedirectToPage("FeedbackSuccess"); // Redirect to a success page
+            // Lấy các đơn hàng của khách hàng này
+            Orders = (await _orderService.GetOrdersByCustomerIdAsync(customer.CustomerId)).ToList();
+
+            if (TempData.ContainsKey("FeedbackMessage"))
+            {
+                IsFeedbackSubmitted = true;
+            }
+
+            return Page();
         }
-    }
 
-    public class FeedbackViewModel
-    {
-        [Required(ErrorMessage = "Vui l�ng nh?p t�n c?a b?n.")]
-        public required string Name { get; set; }
+        public async Task<IActionResult> OnPostAsync()
+        {
+            // Lấy UserId từ Claims
+            if (!int.TryParse(User.FindFirst("UserId")?.Value, out int userId))
+            {
+                ModelState.AddModelError("", "Không thể xác định UserId.");
+                return await OnGetAsync();
+            }
 
-        [Required(ErrorMessage = "Vui l�ng nh?p email c?a b?n.")]
-        [EmailAddress(ErrorMessage = "??a ch? email kh�ng h?p l?.")]
-        public required string Email { get; set; }
+            if (SelectedOrderId == 0 || Rating == null)
+            {
+                ModelState.AddModelError("", "Vui lòng chọn đơn hàng và đánh giá.");
+                return await OnGetAsync();
+            }
 
-        [Required(ErrorMessage = "Vui l�ng ?�nh gi� (1-5).")]
-        [Range(1, 5, ErrorMessage = "?�nh gi� ph?i t? 1 ??n 5.")]
-        public int Rating { get; set; }
+            // Lấy thông tin khách hàng dựa vào UserId
+            var customer = await _customerService.GetCustomerByUserIdAsync(userId);
+            if (customer == null)
+            {
+                ModelState.AddModelError("", "Không tìm thấy thông tin khách hàng.");
+                return await OnGetAsync();
+            }
 
-        [Required(ErrorMessage = "Vui l�ng nh?p ph?n h?i c?a b?n.")]
-        public required string Comments { get; set; }
+            // Lấy các đơn hàng của khách hàng này
+            Orders = (await _orderService.GetOrdersByCustomerIdAsync(customer.CustomerId)).ToList();
+
+            // Kiểm tra xem SelectedOrderId có nằm trong danh sách đơn hàng của khách hàng không
+            var order = Orders.FirstOrDefault(o => o.OrderId == SelectedOrderId);
+            if (order == null)
+            {
+                ModelState.AddModelError("", "Đơn hàng không hợp lệ.");
+                return await OnGetAsync();
+            }
+
+            // Lưu phản hồi vào cơ sở dữ liệu
+            FeedbackSubmissionTime = DateTime.Now;
+            var feedback = new Feedback
+            {
+                OrderId = SelectedOrderId,
+                Rating = Rating,
+                Comment = Comment,
+                FeedbackDate = FeedbackSubmissionTime
+            };
+
+            try
+            {
+                await _feedbackService.CreateFeedbackAsync(feedback);
+                TempData["FeedbackMessage"] = $"Cảm ơn quý khách đã gửi phản hồi vào {FeedbackSubmissionTime:dd/MM/yyyy HH:mm:ss}!";
+                return RedirectToPage("/Customer/SubmitFeedback");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Đã xảy ra lỗi khi lưu phản hồi: {ex.Message}");
+                return await OnGetAsync();
+            }
+        }
+
     }
 }

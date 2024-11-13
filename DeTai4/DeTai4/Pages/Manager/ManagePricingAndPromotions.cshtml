@@ -1,0 +1,130 @@
+﻿@page
+@model DeTai4.Pages.Manager.ManagePricingAndPromotionsModel
+@{
+    ViewData["Title"] = "Quản lý bảng giá và khuyến mãi";
+}
+
+<h2>Quản lý bảng giá và khuyến mãi</h2>
+
+@if (TempData.ContainsKey("SuccessMessage"))
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<h3>Bảng giá</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Dự án</th>
+            <th>Số tiền</th>
+            <th>Chi tiết</th>
+            <th>Ngày tạo</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var quotation in Model.Quotations)
+        {
+            <tr>
+                <td>@quotation.Project.ProjectName</td>
+                <td>@quotation.Amount</td>
+                <td>@quotation.Details</td>
+                <td>@quotation.CreatedDate.ToShortDateString()</td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="editQuotation(@quotation.QuotationId)">Sửa</button>
+                    <form method="post" asp-page-handler="DeleteQuotation" asp-route-id="@quotation.QuotationId" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Khuyến mãi</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tên khuyến mãi</th>
+            <th>Giảm giá</th>
+            <th>Ngày bắt đầu</th>
+            <th>Ngày kết thúc</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var promotion in Model.Promotions)
+        {
+            <tr>
+                <td>@promotion.PromotionName</td>
+                <td>@promotion.Discount</td>
+                <td>@promotion.StartDate?.ToShortDateString()</td>
+                <td>@promotion.EndDate?.ToShortDateString()</td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="editPromotion(@promotion.PromotionId)">Sửa</button>
+                    <form method="post" asp-page-handler="DeletePromotion" asp-route-id="@promotion.PromotionId" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>@(Model.IsEditingQuotation ? "Cập nhật bảng giá" : "Thêm bảng giá mới")</h3>
+<form method="post" asp-page-handler="SaveQuotation">
+    <input type="hidden" asp-for="Quotation.QuotationId" />
+    <div class="form-group">
+        <label>Dự án</label>
+        <select asp-for="Quotation.ProjectId" class="form-control" required>
+            <option value="">Chọn dự án</option>
+            @foreach (var project in Model.Projects)
+            {
+                <option value="@project.ProjectId">@project.ProjectName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Số tiền</label>
+        <input type="number" asp-for="Quotation.Amount" class="form-control" required min="0" step="0.01" />
+    </div>
+    <div class="form-group">
+        <label>Chi tiết</label>
+        <textarea asp-for="Quotation.Details" class="form-control" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">@Model.QuotationSubmitButtonText</button>
+</form>
+
+<h3>@(Model.IsEditingPromotion ? "Cập nhật khuyến mãi" : "Thêm khuyến mãi mới")</h3>
+<form method="post" asp-page-handler="SavePromotion">
+    <input type="hidden" asp-for="Promotion.PromotionId" />
+    <div class="form-group">
+        <label>Tên khuyến mãi</label>
+        <input type="text" asp-for="Promotion.PromotionName" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>Giảm giá</label>
+        <input type="number" asp-for="Promotion.Discount" class="form-control" required min="0" step="0.01" />
+    </div>
+    <div class="form-group">
+        <label>Ngày bắt đầu</label>
+        <input type="date" asp-for="Promotion.StartDate" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>Ngày kết thúc</label>
+        <input type="date" asp-for="Promotion.EndDate" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-success">@Model.PromotionSubmitButtonText</button>
+</form>
+
+@section Scripts {
+    <script>
+        function editQuotation(quotationId) {
+            window.location.href = `?handler=EditQuotation&id=${quotationId}`;
+        }
+
+        function editPromotion(promotionId) {
+            window.location.href = `?handler=EditPromotion&id=${promotionId}`;
+        }
+    </script>
+}

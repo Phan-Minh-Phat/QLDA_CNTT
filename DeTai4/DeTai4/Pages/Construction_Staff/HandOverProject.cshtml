@@ -1,4 +1,48 @@
 ﻿@page
-@model DeTai4.Pages.Construction_Staff.HandOverProjectModel
+@model DeTai4.Pages.ConstructionStaff.HandOverProjectModel
 @{
+    ViewData["Title"] = "Bàn Giao Công Trình";
+}
+
+<h1>Bàn Giao Công Trình</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (Model.ProjectsToHandOver.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID Dự Án</th>
+                <th>Tên Dự Án</th>
+                <th>Chi Tiết Yêu Cầu</th>
+                <th>Trạng Thái Hiện Tại</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model.ProjectsToHandOver)
+            {
+                <form method="post" asp-page-handler="HandOverProject">
+                <tr>
+                    <td>@project.ProjectId</td>
+                    <td>@project.ProjectName</td>
+                    <td>@project.RequestDetails</td>
+                    <td>@project.Status</td>
+                    <td>
+                        <input type="hidden" name="projectId" value="@project.ProjectId" />
+                        <button type="submit" class="btn btn-primary">Bàn Giao</button>
+                    </td>
+                </tr>
+                </form>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có dự án nào sẵn sàng để bàn giao.</p>
 }

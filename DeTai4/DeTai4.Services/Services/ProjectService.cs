@@ -53,5 +53,39 @@ namespace DeTai4.Services.Implementations
         {
             return await _projectRepository.GetPendingProjectsAsync();
         }
+            
+
+        public async Task<IEnumerable<Project>> GetProjectsByCustomerIdAsync(int customerId)
+        {
+            return await _projectRepository.GetProjectsByCustomerIdAsync(customerId);
+        }
+
+        public async Task<List<Project>> GetProjectsWithConstructionStaffAsync()
+        {
+            return await _projectRepository.GetProjectsWithConstructionStaffAsync();
+        }
+        public async Task<IEnumerable<Project>> GetProjectsForStaffAsync(int staffId)
+        {
+            return await _projectRepository.GetProjectsForStaffAsync(staffId);
+        }
+
+        public async Task<IEnumerable<Project>> GetCompletedProjectsAsync()
+        {
+            return await _projectRepository.GetCompletedProjectsAsync();
+        }
+
+        public async Task ProvideMaintenanceAsync(int projectId, int serviceId, int staffId, string resultDescription)
+        {
+            var maintenanceResult = new MaintenanceResult
+            {
+                ProjectId = projectId,
+                ServiceId = serviceId,
+                StaffId = staffId,
+                ResultDescription = resultDescription,
+                ResultDate = DateTime.Now
+            };
+
+            await _projectRepository.AddMaintenanceResultAsync(maintenanceResult);
+        }
     }
 }

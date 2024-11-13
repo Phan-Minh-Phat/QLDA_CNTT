@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeTai4.Reponsitories", "Rep
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeTai4.Services", "DeTai4.Services\DeTai4.Services.csproj", "{B1C730D0-B044-41B7-AB18-285D3EC0CEE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{2E8A838B-34D5-42FC-B79D-2B6158DF353C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B1C730D0-B044-41B7-AB18-285D3EC0CEE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1C730D0-B044-41B7-AB18-285D3EC0CEE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1C730D0-B044-41B7-AB18-285D3EC0CEE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E8A838B-34D5-42FC-B79D-2B6158DF353C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E8A838B-34D5-42FC-B79D-2B6158DF353C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E8A838B-34D5-42FC-B79D-2B6158DF353C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E8A838B-34D5-42FC-B79D-2B6158DF353C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,31 +1,56 @@
 ﻿@page
-@model DeTai4.Pages.Construction_Staff.ManageConstructionProgressModel
+@model DeTai4.Pages.ConstructionStaff.ManageConstructionProgressModel
 @{
     ViewData["Title"] = "Quản Lý Tiến Độ Thi Công";
 }
 
-<h2>Quản Lý Tiến Độ Thi Công</h2>
+<h1>Quản Lý Tiến Độ Thi Công</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Dự Án</th>
-            <th>Ngày Bắt Đầu</th>
-            <th>Ngày Kết Thúc</th>
-            <th>Hành Động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var project in Model.Projects)
-        {
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (Model.Projects.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@project.ProjectName</td>
-                <td>@project.StartDate</td>
-                <td>@project.EndDate</td>
-                <td>
-                    <a asp-page="./EditConstructionProgress" asp-route-id="@project.ProjectId" class="btn btn-primary">Chỉnh sửa</a>
-                </td>
+                <th>ID Dự Án</th>
+                <th>Tên Dự Án</th>
+                <th>Chi Tiết Yêu Cầu</th>
+                <th>Trạng Thái Hiện Tại</th>
+                <th>Cập Nhật Tiến Độ</th>
+                <th>Hành Động</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var project in Model.Projects)
+            {
+                <form method="post" asp-page-handler="UpdateProgress">
+                <tr>
+                    <td>@project.ProjectId</td>
+                    <td>@project.ProjectName</td>
+                    <td>@project.RequestDetails</td>
+                    <td>@project.Status</td>
+                    <td>
+                        <select name="newStatus" class="form-control">
+                            <option value="In Progress" selected="@(project.Status == "In Progress" ? "selected" : "")">In Progress</option>
+                            <option value="Completed" selected="@(project.Status == "Completed" ? "selected" : "")">Completed</option>
+                            <option value="Pending" selected="@(project.Status == "Pending" ? "selected" : "")">Pending</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="hidden" name="projectId" value="@project.ProjectId" />
+                        <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                    </td>
+                </tr>
+                </form>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có dự án nào được phân công cho bạn.</p>
+}

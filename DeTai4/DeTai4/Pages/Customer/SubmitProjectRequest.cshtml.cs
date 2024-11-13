@@ -5,6 +5,7 @@ using DeTai4.Reponsitories.Repositories.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 using DeTai4.Services;
 
 namespace DeTai4.Pages.Customer
@@ -36,11 +37,17 @@ namespace DeTai4.Pages.Customer
         {
             // Lấy tất cả các mẫu thiết kế để hiển thị trong form cho khách hàng chọn
             Designs = (await _designService.GetAllDesignsAsync()).ToList();
+
+            // Kiểm tra nếu TempData có chứa thông báo thành công
+            if (TempData.ContainsKey("IsRequestSubmitted"))
+            {
+                IsRequestSubmitted = true;
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // Lấy UserId từ claims (sau khi đăng nhập đã được lưu ở đây)
+            // Lấy UserId từ claims
             if (!int.TryParse(User.FindFirst("UserId")?.Value, out int userId))
             {
                 ModelState.AddModelError("", "Không thể xác định UserId.");
@@ -62,28 +69,28 @@ namespace DeTai4.Pages.Customer
                 return Page();
             }
 
-            // Tạo mới đối tượng Project
+            // Tạo mới đối tượng Project chỉ với CustomerId
             var newProject = new Project
             {
-                CustomerId = customer.CustomerId,
+                CustomerId = customer.CustomerId, // Chỉ lưu CustomerId
                 DesignId = DesignId,
                 ProjectName = "Yêu cầu thi công từ khách hàng",
                 Status = "Pending",
                 RequestDetails = RequestDetails,
                 StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddMonths(2) // Ví dụ: ngày kết thúc dự kiến sau 2 tháng
+                EndDate = DateTime.Now.AddMonths(2)
             };
 
             try
             {
                 // Gọi service để lưu thông tin project mới vào cơ sở dữ liệu
                 await _projectService.CreateProjectAsync(newProject);
+                TempData["SuccessMessage"] = "Quý khách đã gửi yêu cầu thi công thành công!";
                 IsRequestSubmitted = true;
-                return RedirectToPage("/Customer/SubmitProjectRequest", new { message = "Yêu cầu đã được gửi thành công!" });
+                return Page();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                // Xử lý lỗi và thông báo cho người dùng
                 ModelState.AddModelError("", $"Đã xảy ra lỗi khi gửi yêu cầu: {ex.Message}");
                 return Page();
             }

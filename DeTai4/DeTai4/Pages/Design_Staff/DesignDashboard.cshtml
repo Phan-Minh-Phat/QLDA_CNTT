@@ -1,0 +1,50 @@
+﻿@page
+@model DeTai4.Pages.Design_Staff.DesignDashboardModel
+@{
+    ViewData["Title"] = "Bảng Điều Khiển Thiết Kế";
+}
+
+<div class="container-fluid bg-secondary text-center py-5" style="background-color: #6c757d;">
+    <h1 class="display-4" style="font-size: 3rem; color: #1c1e21; font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);">
+        Chào Mừng Đến Với Bảng Điều Khiển Thiết Kế
+    </h1>
+    <p class="lead" style="color: #2c2f33; font-weight: 500;">
+        Quản lý và cập nhật mẫu thiết kế, hồ sơ thiết kế và phối hợp với nhân viên thi công.
+    </p>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Card: Tạo Mẫu Thiết Kế Mới -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Tạo Mẫu Thiết Kế Mới</h5>
+                    <p class="card-text">Tạo mẫu thiết kế mới cho các dự án.</p>
+                    <a href="/Design_Staff/CreateDesign" class="btn btn-primary">Tạo mẫu mới</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Quản Lý Hồ Sơ Thiết Kế -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Quản Lý Hồ Sơ Thiết Kế</h5>
+                    <p class="card-text">Quản lý các hồ sơ thiết kế hiện có.</p>
+                    <a href="/Design_Staff/ManageDesigns" class="btn btn-primary">Quản lý thiết kế</a>
+                </div>
+            </div>
+        </div>
+        <!-- Card: Phối Hợp Với Thi Công -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Phối Hợp Với Thi Công</h5>
+                    <p class="card-text">Phối hợp với nhân viên thi công trong các dự án.</p>
+                    <a href="/Design_Staff/CoordinateWithConstruction" class="btn btn-primary">Phối hợp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

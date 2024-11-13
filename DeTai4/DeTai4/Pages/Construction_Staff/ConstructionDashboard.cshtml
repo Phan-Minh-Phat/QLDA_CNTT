@@ -1,0 +1,73 @@
+﻿@page
+@model DeTai4.Pages.Construction_Staff.ConstructionDashboardModel
+@{
+    ViewData["Title"] = "Bảng Điều Khiển Thi Công";
+}
+
+<div class="container-fluid bg-secondary text-center py-5" style="background-color: #6c757d;">
+    <h1 class="display-4" style="font-size: 3rem; color: #1c1e21; font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);">
+        Chào Mừng Đến Với Bảng Điều Khiển Thi Công
+    </h1>
+    <p class="lead" style="color: #2c2f33; font-weight: 500;">
+        Quản lý và cập nhật thông tin, tiến độ dự án thi công và cung cấp dịch vụ bảo dưỡng.
+    </p>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Card: Nhận Thông Tin Dự Án -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Nhận Thông Tin Dự Án</h5>
+                    <p class="card-text">Nhận thông tin chi tiết về các dự án thi công mới.</p>
+                    <a href="/Construction_Staff/ReceiveProjectInfo" class="btn btn-primary">Nhận thông tin</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Quản Lý Tiến Độ Thi Công -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Quản Lý Tiến Độ Thi Công</h5>
+                    <p class="card-text">Theo dõi và quản lý tiến độ thi công của các dự án.</p>
+                    <a href="/Construction_Staff/ManageConstructionProgress" class="btn btn-primary">Quản lý tiến độ</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Bàn Giao Công Trình -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Bàn Giao Công Trình</h5>
+                    <p class="card-text">Hoàn tất và bàn giao công trình cho khách hàng.</p>
+                    <a href="/Construction_Staff/HandOverProject" class="btn btn-primary">Bàn giao</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Cung Cấp Dịch Vụ Bảo Dưỡng -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Cung Cấp Dịch Vụ Bảo Dưỡng</h5>
+                    <p class="card-text">Cung cấp dịch vụ bảo dưỡng cho các dự án thi công.</p>
+                    <a href="/Construction_Staff/ProvideMaintenanceService" class="btn btn-primary">Cung cấp dịch vụ</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Ghi Nhận Kết Quả Bảo Dưỡng -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Ghi Nhận Kết Quả Bảo Dưỡng</h5>
+                    <p class="card-text">Ghi nhận và lưu lại kết quả sau khi bảo dưỡng.</p>
+                    <a href="/Construction_Staff/RecordMaintenanceResult" class="btn btn-primary">Ghi nhận kết quả</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

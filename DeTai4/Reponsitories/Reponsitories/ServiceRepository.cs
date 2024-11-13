@@ -21,7 +21,7 @@ namespace DeTai4.Repositories.Implementations
             return await _context.Services
                                  .Include(s => s.MaintenanceResults)
                                  .Include(s => s.Orders)
-                                 .Include(s => s.Staff)
+                                
                                  .ToListAsync();
         }
 
@@ -31,7 +31,7 @@ namespace DeTai4.Repositories.Implementations
             return await _context.Services
                                  .Include(s => s.MaintenanceResults)
                                  .Include(s => s.Orders)
-                                 .Include(s => s.Staff)
+                                
                                  .FirstOrDefaultAsync(s => s.ServiceId == serviceId);
         }
 
@@ -66,7 +66,7 @@ namespace DeTai4.Repositories.Implementations
             return await _context.Services
                                  .Include(s => s.MaintenanceResults)
                                  .Include(s => s.Orders)
-                                 .Include(s => s.Staff)
+                                
                                  .Where(s => s.ServiceName != null && s.ServiceName.Contains(serviceName))
                                  .ToListAsync();
         }

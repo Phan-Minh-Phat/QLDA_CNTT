@@ -12,5 +12,7 @@ namespace DeTai4.Repositories.Interfaces
         Task CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int userId);
+        Task<Staff?> GetStaffByUserIdAsync(int userId);
+        Task<Customer?> GetCustomerByUserIdAsync(int userId);
     }
 }

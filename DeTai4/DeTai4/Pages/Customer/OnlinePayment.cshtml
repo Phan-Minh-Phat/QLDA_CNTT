@@ -1,51 +1,59 @@
-﻿@page
-@model DeTai4.Pages.Customer.OnlinePaymentModel
-@{
-    ViewData["Title"] = "Thanh Toán Trực Tuyến";
-}
-
-<div class="container mt-4">
-    thêm using cho các thành phần bị sai
-    <h2 class="text-center">@ViewData["Title"]</h2>
-    <p class="text-center">Vui lòng nhập thông tin thanh toán của bạn</p>
-
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="Payment.CardNumber">Số Thẻ</label>
-            <input asp-for="Payment.CardNumber" class="form-control" />
-            <span asp-validation-for="Payment.CardNumber" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Payment.CardHolderName">Tên Chủ Thẻ</label>
-            <input asp-for="Payment.CardHolderName" class="form-control" />
-            <span asp-validation-for="Payment.CardHolderName" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Payment.ExpirationDate">Ngày Hết Hạn</label>
-            <input asp-for="Payment.ExpirationDate" type="date" class="form-control" />
-            <span asp-validation-for="Payment.ExpirationDate" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Payment.CVV">Mã CVV</label>
-            <input asp-for="Payment.CVV" class="form-control" />
-            <span asp-validation-for="Payment.CVV" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Payment.Amount">Số Tiền</label>
-            <input asp-for="Payment.Amount" class="form-control" />
-            <span asp-validation-for="Payment.Amount" class="text-danger"></span>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Thanh Toán</button>
-    </form>
-</div>
-
-@section Scripts {
+﻿    @page
+    @model DeTai4.Pages.Customer.OnlinePaymentModel
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        ViewData["Title"] = "Thanh Toán Trực Tuyến";
     }
-}
+
+    <div class="container mt-5">
+        <h2 class="text-center">Thanh Toán Trực Tuyến</h2>
+
+        <!-- Hiển thị thông báo thành công khi thanh toán thành công -->
+        @if (TempData["ThankYouMessage"] != null)
+        {
+            <div class="alert alert-success text-center mt-4">
+                @TempData["ThankYouMessage"]
+            </div>
+        }
+
+        <!-- Form thanh toán -->
+        <form method="post">
+            <!-- Chọn Đơn Hàng -->
+            <div class="form-group">
+                <label for="SelectedOrderId" class="control-label">Chọn Đơn Hàng</label>
+                <select id="SelectedOrderId" asp-for="SelectedOrderId" class="form-control">
+                    <option value="">-- Chọn Đơn Hàng --</option>
+                    @foreach (var order in Model.Orders)
+                    {
+                        <option value="@order.OrderId">
+                            Mã Đơn Hàng: @order.OrderId - Tổng Chi Phí: @order.TotalCost?.ToString("C")
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="SelectedOrderId" class="text-danger"></span>
+            </div>
+
+            <!-- Chọn Phương Thức Thanh Toán -->
+            <div class="form-group mt-3">
+                <label asp-for="PaymentMethod" class="control-label">Phương Thức Thanh Toán</label>
+                <select asp-for="PaymentMethod" class="form-control">
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                    <option value="Cash">Cash</option>
+                </select>
+                <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+            </div>
+        <input type="hidden" asp-for="PaymentDate" value="@DateTime.Now" />
+            <!-- Nút Thanh Toán -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">Thanh Toán</button>
+            </div>
+        </form>
+
+        <!-- Thông báo lỗi khi thanh toán thất bại -->
+        @if (!string.IsNullOrEmpty(Model.PaymentStatus) && Model.PaymentStatus == "Failed")
+        {
+            <div class="alert alert-danger text-center mt-4">
+                Đã xảy ra lỗi khi thanh toán. Vui lòng thử lại!
+            </div>
+        }
+    </div>

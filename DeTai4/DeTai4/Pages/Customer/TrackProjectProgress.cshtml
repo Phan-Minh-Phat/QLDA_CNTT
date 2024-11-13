@@ -1,55 +1,50 @@
 ﻿@page
-@model DeTai4.Pages.Customer.TrackProjectProgressModel
+@model DeTai4.Pages.Home.TrackProjectProgressModel
 @{
-    ViewData["Title"] = "Theo Dõi Tiến Độ Dự Án";
+    ViewData["Title"] = "Theo Dõi Tiến Độ Thi Công";
 }
 
-<div class="container mt-4">
+<div class="container mt-5">
     <h2 class="text-center">@ViewData["Title"]</h2>
-    <p class="text-center">Dưới đây là tiến độ dự án của bạn</p>
-
-    @if (Model.Projects != null && Model.Projects.Count > 0)
-    {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Mã Dự Án</th>
-                    <th scope="col">Tên Dự Án</th>
-                    <th scope="col">Ngày Bắt Đầu</th>
-                    <th scope="col">Ngày Kết Thúc</th>
-                    <th scope="col">Tiến Độ (%)</th>
-                    <th scope="col">Trạng Thái</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var project in Model.Projects)
-                {
-                    <tr>
-                        <td>@project.ProjectId</td>
-                        <td>@project.ProjectName</td>
-                        <td>@project.StartDate?.ToString("dd/MM/yyyy")</td>
-                        <td>@project.EndDate?.ToString("dd/MM/yyyy")</td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: @project.ProgressPercent%;" aria-valuenow="@project.ProgressPercent" aria-valuemin="0" aria-valuemax="100">
-                                    @project.ProgressPercent%
-                                </div>
-                            </div>
-                        </td>
-                        <td>@project.Status</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p class="text-center text-muted">Hiện không có dự án nào đang theo dõi.</p>
-    }
+    <p class="text-center">Xem danh sách các dự án và tiến độ của bạn.</p>
+            @if (Model.Projects != null && Model.Projects.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered shadow-sm">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th scope="col">Mã Dự Án</th>
+                                <th scope="col">Tên Dự Án</th>
+                                <th scope="col">Ngày Bắt Đầu</th>
+                                <th scope="col">Ngày Kết Thúc</th>
+                                <th scope="col">Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var project in Model.Projects)
+                            {
+                                <tr>
+                                    <td>@project.ProjectId</td>
+                                    <td>@project.ProjectName</td>
+                                    <td>@project.StartDate?.ToString("dd/MM/yyyy")</td>
+                                    <td>@project.EndDate?.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <span class="badge @(project.Status == "Completed" ? "bg-success" : "bg-warning") text-white">
+                                            @project.Status
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning text-center">
+                    <strong>Không có dự án nào.</strong> Vui lòng kiểm tra lại sau.
+                </div>
+            }
+        </div>
+    </div>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

@@ -74,8 +74,8 @@ namespace DeTai4.Repositories.Implementations
         public async Task<Customer?> GetCustomerByUserIdAsync(int userId)
         {
             return await _context.Customers
-                                 .Include(c => c.User)
-                                 .FirstOrDefaultAsync(c => c.UserId == userId);
+                          .Include(c => c.User)
+                          .FirstOrDefaultAsync(c => c.UserId == userId);
         }
     }
 }

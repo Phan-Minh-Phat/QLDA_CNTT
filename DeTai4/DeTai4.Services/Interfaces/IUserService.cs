@@ -14,6 +14,9 @@ namespace DeTai4.Services.Interfaces
         Task DeleteUserAsync(int userId);
         Task<bool> ValidateUserAsync(string username, string password);
         Task<bool> CheckUserExistsAsync(string username);
+        Task<int?> GetStaffIdByUserIdAsync(int userId);
+        Task<int?> GetCustomerIdByUserIdAsync(int userId);
+
 
     }
 }

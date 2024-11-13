@@ -1,38 +1,38 @@
-using System.Threading.Tasks;
-using DeTai4.Reponsitories.Repositories.Entities;
-using DeTai4.Services;
-using DeTai4.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using DeTai4.Services.Interfaces;
+using DeTai4.Reponsitories.Repositories.Entities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using DeTai4.Services;
 
-namespace DeTai4.Pages.Construction_Staff
+namespace DeTai4.Pages.ConstructionStaff
 {
     public class ReceiveProjectInfoModel : PageModel
     {
         private readonly IProjectService _projectService;
-
-        [BindProperty]
-        public Project Project { get; set; }
 
         public ReceiveProjectInfoModel(IProjectService projectService)
         {
             _projectService = projectService;
         }
 
-        public void OnGet()
-        {
-            // This method can be used to load any initial data if needed.
-        }
+        public List<Project> AssignedProjects { get; set; } = new List<Project>();
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task OnGetAsync()
         {
-            if (!ModelState.IsValid)
+            // Lấy StaffId từ thông tin đăng nhập của nhân viên
+            if (int.TryParse(User.FindFirst("StaffId")?.Value, out int staffId))
             {
-                return Page();
+                // Lấy danh sách các dự án được phân công cho nhân viên đăng nhập
+                AssignedProjects = (await _projectService.GetProjectsForStaffAsync(staffId)).ToList();
             }
-
-            await _projectService.AddProjectAsync(Project);
-            return RedirectToPage("/Construction_Staff/ReceiveProjectInfo");
+            else
+            {
+                ModelState.AddModelError("", "Không thể xác định nhân viên đăng nhập.");
+            }
         }
     }
 }

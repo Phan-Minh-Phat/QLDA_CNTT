@@ -1,11 +1,10 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using DeTai4.Services.Interfaces;
 using DeTai4.Reponsitories.Repositories.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Composition;
 
 namespace DeTai4.Pages.Manager
 {
@@ -17,6 +16,7 @@ namespace DeTai4.Pages.Manager
         {
             _reportService = reportService;
         }
+
         public List<Report> Reports { get; set; } = new List<Report>();
 
         [BindProperty]
@@ -33,7 +33,7 @@ namespace DeTai4.Pages.Manager
 
         public async Task OnGetAsync()
         {
-            // L?y t?t c? c�c b�o c�o t? d?ch v?
+            // Lấy tất cả các báo cáo từ dịch vụ
             Reports = (await _reportService.GetAllReportsAsync()).ToList();
         }
 
@@ -50,7 +50,7 @@ namespace DeTai4.Pages.Manager
 
             await _reportService.CreateReportAsync(newReport);
 
-            TempData["SuccessMessage"] = "B�o c�o m?i ?� ???c th�m th�nh c�ng!";
+            TempData["SuccessMessage"] = "Báo cáo mới đã được thêm thành công!";
             return RedirectToPage();
         }
     }

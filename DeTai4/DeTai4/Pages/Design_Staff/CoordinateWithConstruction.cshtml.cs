@@ -1,7 +1,7 @@
-﻿using DeTai4.Services.Interfaces;
-using DeTai4.Reponsitories.Repositories.Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using DeTai4.Services.Interfaces;
+using DeTai4.Reponsitories.Repositories.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DeTai4.Services;
@@ -10,75 +10,53 @@ namespace DeTai4.Pages.Design_Staff
 {
     public class CoordinateWithConstructionModel : PageModel
     {
-        private readonly IDesignService _designService;
-        private readonly IStaffService _constructionStaffService;
         private readonly IProjectService _projectService;
+        private readonly IStaffService _staffService;
 
-        [BindProperty]
-        public int SelectedDesignId { get; set; }
+        public CoordinateWithConstructionModel(IProjectService projectService, IStaffService staffService)
+        {
+            _projectService = projectService;
+            _staffService = staffService;
+        }
+
+        public List<Project> Projects { get; set; } = new List<Project>();
+        public List<Staff> ConstructionStaffs { get; set; } = new List<Staff>();
 
         [BindProperty]
         public int SelectedStaffId { get; set; }
 
-        // Khởi tạo giá trị mặc định để tránh cảnh báo về việc không khởi tạo giá trị không null
-        public IEnumerable<Design> AllDesigns { get; set; } = new List<Design>();
-        public IEnumerable<Staff> AllStaff { get; set; } = new List<Staff>();
+        [BindProperty]
+        public int SelectedProjectId { get; set; }
 
-        // Constructor để tiêm service
-        public CoordinateWithConstructionModel(
-            IDesignService designService,
-            IStaffService constructionStaffService,
-            IProjectService projectService)
+        [BindProperty]
+        public string AdditionalInfo { get; set; } // Thông tin bổ sung
+
+        public async Task OnGetAsync()
         {
-            _designService = designService;
-            _constructionStaffService = constructionStaffService;
-            _projectService = projectService;
+            // Lấy danh sách các dự án cần phối hợp
+            Projects = (List<Project>)await _projectService.GetAllProjectsAsync();
+
+            // Lấy danh sách các nhân viên thi công (Construction role)
+            ConstructionStaffs = (await _staffService.GetStaffByRoleAsync("ConstructionStaff")).ToList();
         }
 
-        // Lấy tất cả các thiết kế và nhân viên thi công
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnPostAssignStaffAsync(int selectedProjectId, int selectedStaffId, string additionalInfo)
         {
-            AllDesigns = await _designService.GetAllDesignsAsync();
-            AllStaff = await _constructionStaffService.GetAllStaffAsync();
-            return Page();
-        }
-
-        // Xử lý phối hợp khi người dùng chọn thiết kế và nhân viên thi công
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (ModelState.IsValid)
+            // Xác định dự án cần phân công
+            var project = await _projectService.GetProjectByIdAsync(selectedProjectId);
+            if (project == null)
             {
-                try
-                {
-                    var design = await _designService.GetDesignByIdAsync(SelectedDesignId);
-                    var staff = await _constructionStaffService.GetStaffByIdAsync(SelectedStaffId);
-
-                    if (design == null || staff == null)
-                    {
-                        ViewData["ErrorMessage"] = "Mẫu thiết kế hoặc nhân viên thi công không tồn tại.";
-                        return Page();
-                    }
-
-                    // Thêm công việc vào dự án
-                    var project = new Project
-                    {
-                        DesignId = design.DesignId,
-                        StaffId = staff.StaffId
-                    };
-
-                    await _projectService.CreateProjectAsync(project);
-
-                    return RedirectToPage("/Design_Staff/ManageDesigns");
-                }
-                catch (System.Exception ex)
-                {
-                    ViewData["ErrorMessage"] = $"Lỗi xảy ra: {ex.Message}";
-                    return Page();
-                }
+                ModelState.AddModelError("", "Không tìm thấy dự án.");
+                return Page();
             }
 
-            return Page();
+            // Cập nhật StaffId và thông tin bổ sung cho dự án
+            project.StaffId = selectedStaffId;
+            project.RequestDetails += "\nThông tin bổ sung: " + additionalInfo;
+            await _projectService.UpdateProjectAsync(project);
+
+            // Quay lại trang hiện tại để cập nhật danh sách
+            return RedirectToPage();
         }
     }
 }
-

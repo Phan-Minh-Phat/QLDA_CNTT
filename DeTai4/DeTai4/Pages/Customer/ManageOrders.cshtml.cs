@@ -1,54 +1,66 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using DeTai4.Services.Interfaces;
+using DeTai4.Reponsitories.Repositories.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Security.Claims;
+using DeTai4.Services;
 
 namespace DeTai4.Pages.Customer
 {
-    public class ManageOrdersModel : PageModel
+    public class ManageProjectsModel : PageModel
     {
-        // List of orders that a customer has placed
-        public required List<OrderViewModel> Orders { get; set; }
+        private readonly IProjectService _projectService;
+        private readonly ICustomerService _customerService;
 
-        public void OnGet()
+        public ManageProjectsModel(IProjectService projectService, ICustomerService customerService)
         {
-            // Fetch the orders for the logged-in customer
-            Orders = GetOrdersForCustomer();
+            _projectService = projectService;
+            _customerService = customerService;
         }
 
-        public IActionResult OnPostCancel(int orderId)
-        {
-            // Logic to cancel the order
-            CancelOrderById(orderId);
+        public List<Project> Projects { get; set; } = new List<Project>();
 
-            // Redirect back to the page after canceling the order
+        public async Task<IActionResult> OnGetAsync()
+        {
+            // Lấy UserId từ Claims sau khi đăng nhập
+            if (!int.TryParse(User.FindFirst("UserId")?.Value, out int userId))
+            {
+                ModelState.AddModelError("", "Không thể xác định UserId.");
+                return Page();
+            }
+
+            // Lấy thông tin khách hàng dựa vào UserId
+            var customer = await _customerService.GetCustomerByUserIdAsync(userId);
+            if (customer == null)
+            {
+                ModelState.AddModelError("", "Không tìm thấy thông tin khách hàng.");
+                return Page();
+            }
+
+            // Lấy tất cả các dự án của khách hàng
+            Projects = (await _projectService.GetProjectsByCustomerIdAsync(customer.CustomerId)).ToList();
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostCancelProjectAsync(int projectId)
+        {
+            // Tìm dự án theo ID
+            var project = await _projectService.GetProjectByIdAsync(projectId);
+            if (project == null)
+            {
+                ModelState.AddModelError("", "Không tìm thấy dự án.");
+                return RedirectToPage();
+            }
+
+            // Cập nhật trạng thái dự án thành "Cancelled"
+            project.Status = "Cancelled";
+            await _projectService.UpdateProjectAsync(project);
+
             return RedirectToPage();
         }
-
-        private List<OrderViewModel> GetOrdersForCustomer()
-        {
-            // Placeholder: Replace with logic to fetch orders for the logged-in customer from the database
-            return new List<OrderViewModel>
-            {
-                new OrderViewModel { OrderId = 1, OrderDate = System.DateTime.Now.AddMonths(-1), ProductName = "S?n ph?m A", Quantity = 2, TotalAmount = 50000, Status = "?ang X? L�" },
-                new OrderViewModel { OrderId = 2, OrderDate = System.DateTime.Now.AddDays(-5), ProductName = "S?n ph?m B", Quantity = 1, TotalAmount = 20000, Status = "?� Giao" }
-            };
-        }
-
-        private void CancelOrderById(int orderId)
-        {
-            // Placeholder: Logic to cancel the order in the database
-            // For example, update the status of the order in the database to "Canceled"
-        }
-    }
-
-    public class OrderViewModel
-    {
-        public int OrderId { get; set; }
-        public System.DateTime OrderDate { get; set; }
-        public required string ProductName { get; set; }
-        public int Quantity { get; set; }
-        public decimal TotalAmount { get; set; }
-        public required string Status { get; set; }
     }
 }

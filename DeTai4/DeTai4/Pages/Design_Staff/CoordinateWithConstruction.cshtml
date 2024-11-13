@@ -1,32 +1,53 @@
 ﻿@page
 @model DeTai4.Pages.Design_Staff.CoordinateWithConstructionModel
 @{
-    ViewData["Title"] = "Phối hợp với nhân viên thi công";
+    ViewData["Title"] = "Phối Hợp Với Nhân Viên Thi Công";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h1>Phối Hợp Với Nhân Viên Thi Công</h1>
 
-<form method="post">
-    <div class="form-group">
-        <label for="SelectedDesignId">Chọn mẫu thiết kế:</label>
-        <select asp-for="SelectedDesignId" asp-items="@(new SelectList(Model.AllDesigns, "DesignId", "DesignName"))" class="form-control" required>
-            <option value="">Chọn mẫu thiết kế</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="SelectedStaffId">Chọn nhân viên thi công:</label>
-        <select asp-for="SelectedStaffId" asp-items="@(new SelectList(Model.AllStaff, "StaffId", "FullName"))" class="form-control" required>
-            <option value="">Chọn nhân viên thi công</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Phối hợp</button>
-
-    @if (ViewData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger mt-2">
-            @ViewData["ErrorMessage"]
-        </div>
-    }
-</form>
+@if (Model.Projects.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tên Dự Án</th>
+                <th>Yêu Cầu</th>
+                <th>Nhân Viên Thi Công</th>
+                <th>Thông Tin Bổ Sung</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model.Projects)
+            {
+                <form method="post" asp-page-handler="AssignStaff">
+                    <tr>
+                        <td>@project.ProjectName</td>
+                        <td>@project.RequestDetails</td>
+                        <td>
+                            <input type="hidden" name="selectedProjectId" value="@project.ProjectId" />
+                            <select name="selectedStaffId" class="form-control">
+                                <option value="">Chọn nhân viên</option>
+                                @foreach (var staff in Model.ConstructionStaffs)
+                                {
+                                <option value="@staff.StaffId" selected="@(project.StaffId == staff.StaffId ? "selected" : null)">@staff.FullName</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <textarea name="additionalInfo" class="form-control" placeholder="Nhập thông tin bổ sung..."></textarea>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary">Phân Công</button>
+                        </td>
+                    </tr>
+                </form>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có dự án nào để phối hợp với nhân viên thi công.</p>
+}

@@ -14,31 +14,36 @@ namespace DeTai4.Services
             _feedbackRepository = feedbackRepository;
         }
 
+        // Lấy tất cả phản hồi
         public async Task<IEnumerable<Feedback>> GetAllFeedbacksAsync()
         {
             return await _feedbackRepository.GetAllFeedbacksAsync();
         }
 
+        // Lấy phản hồi theo ID
         public async Task<Feedback?> GetFeedbackByIdAsync(int feedbackId)
         {
             return await _feedbackRepository.GetFeedbackByIdAsync(feedbackId);
         }
 
+        // Tạo phản hồi mới
         public async Task CreateFeedbackAsync(Feedback feedback)
         {
-            // Business logic for creating feedback can be added here
+            // Thêm logic nếu cần thiết trước khi lưu phản hồi
             await _feedbackRepository.AddFeedbackAsync(feedback);
         }
 
+        // Cập nhật phản hồi
         public async Task UpdateFeedbackAsync(Feedback feedback)
         {
-            // Business logic for updating feedback can be added here
+            // Thêm logic nếu cần thiết trước khi cập nhật phản hồi
             await _feedbackRepository.UpdateFeedbackAsync(feedback);
         }
 
+        // Xóa phản hồi theo ID
         public async Task DeleteFeedbackAsync(int feedbackId)
         {
-            // Business logic for deleting feedback can be added here
+            // Thêm logic nếu cần thiết trước khi xóa phản hồi
             await _feedbackRepository.DeleteFeedbackAsync(feedbackId);
         }
     }

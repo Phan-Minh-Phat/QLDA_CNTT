@@ -50,5 +50,13 @@ namespace DeTai4.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<Invoice>> GetInvoicesByCustomerIdAsync(int customerId)
+        {
+            return await _context.Invoices
+                    .Include(i => i.Order)
+                    .Where(i => i.CustomerId == customerId)
+                    .ToListAsync();
+        }
     }
 }

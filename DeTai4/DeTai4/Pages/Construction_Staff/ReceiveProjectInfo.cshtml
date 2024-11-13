@@ -1,34 +1,36 @@
 ﻿@page
-@model DeTai4.Pages.Construction_Staff.ReceiveProjectInfoModel
+@model DeTai4.Pages.ConstructionStaff.ReceiveProjectInfoModel
 @{
-    ViewData["Title"] = "Nhận Thông Tin Dự Án Thi Công";
+    ViewData["Title"] = "Tiếp Nhận Dự Án Thi Công";
 }
 
-<h2>Nhận Thông Tin Dự Án Thi Công</h2>
+<h1>Tiếp Nhận Dự Án Thi Công</h1>
 
-<form method="post">
-    <div>
-        <label for="ProjectName">Tên dự án</label>
-        <input type="text" asp-for="Project.ProjectName" class="form-control" required />
-        <span asp-validation-for="Project.ProjectName" class="text-danger"></span>
-    </div>
-
-    <!-- Bình luận hoặc xóa phần Location nếu không cần thiết -->
-    <!-- <div>
-        <label for="Location">Địa điểm</label>
-        <input type="text" asp-for="Project.Location" class="form-control" required />
-        <span asp-validation-for="Project.Location" class="text-danger"></span>
-    </div> -->
-
-    <div>
-        <label for="StartDate">Ngày bắt đầu</label>
-        <input type="date" asp-for="Project.StartDate" class="form-control" required />
-        <span asp-validation-for="Project.StartDate" class="text-danger"></span>
-    </div>
-    <div>
-        <label for="EndDate">Ngày kết thúc</label>
-        <input type="date" asp-for="Project.EndDate" class="form-control" />
-        <span asp-validation-for="Project.EndDate" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Lưu thông tin</button>
-</form>
+@if (Model.AssignedProjects.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID Dự Án</th>
+                <th>Tên Dự Án</th>
+                <th>Chi Tiết Yêu Cầu</th>
+                <th>Trạng Thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model.AssignedProjects)
+            {
+                <tr>
+                    <td>@project.ProjectId</td>
+                    <td>@project.ProjectName</td>
+                    <td>@project.RequestDetails</td>
+                    <td>@project.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có dự án nào được phân công cho bạn.</p>
+}

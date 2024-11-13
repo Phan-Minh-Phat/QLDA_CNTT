@@ -1,0 +1,42 @@
+﻿@page "{id:int}"
+@model DeTai4.Pages.Consulting_Staff.ConsultModel
+@{
+    ViewData["Title"] = "Tư Vấn Dự Án";
+}
+
+<h1>Chi Tiết Dự Án</h1>
+
+<div>
+    <h2>@Model.Project.ProjectName</h2>
+    <p><strong>Mã Dự Án:</strong> @Model.Project.ProjectId</p>
+    <p><strong>Ngày Bắt Đầu:</strong> @Model.Project.StartDate?.ToString("yyyy-MM-dd")</p>
+    <p><strong>Ngày Kết Thúc:</strong> @Model.Project.EndDate?.ToString("yyyy-MM-dd")</p>
+    <p><strong>Trạng Thái:</strong> @Model.Project.Status</p>
+    <p><strong>Yêu Cầu Khách Hàng:</strong> @Model.Project.RequestDetails</p>
+</div>
+
+<form method="post" asp-page-handler="UpdateStatus">
+    <input type="hidden" asp-for="Project.ProjectId" />
+
+    <div class="form-group">
+        <label for="status">Cập nhật trạng thái</label>
+        <select asp-for="Status" class="form-control">
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="EndDate">Ngày Kết Thúc</label>
+        <input type="date" asp-for="EndDate" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="ConsultationNotes">Lời tư vấn</label>
+        <textarea asp-for="ConsultationNotes" class="form-control" rows="4" placeholder="Nhập lời tư vấn tại đây..."></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a asp-page="/Consulting_Staff/ProvideConsultation" class="btn btn-secondary">Quay lại</a>
+</form>

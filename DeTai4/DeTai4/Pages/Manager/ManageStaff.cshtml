@@ -1,50 +1,74 @@
 ﻿@page
-@model DeTai4.Web.Pages.ManageStaffModel
+@model DeTai4.Pages.Manager.ManageStaffModel
 @{
-    ViewData["Title"] = "Quản lý nhân viên";
+    ViewData["Title"] = "Quản Lý Nhân Viên và Phân Công Công Việc";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>Quản Lý Nhân Viên</h1>
 
-<!-- Display All Staff -->
-<div class="staff-list">
-    <h3>Danh sách nhân viên</h3>
-    <table class="table">
+<h2>Danh Sách Nhân Viên</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tên Nhân Viên</th>
+            <th>Vai Trò</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var staff in Model.Staffs)
+        {
+            <tr>
+                <td>@staff.FullName</td>
+                <td>@staff.Role</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Phân Công Dự Án</h2>
+
+@if (Model.Projects.Count > 0)
+{
+    <table class="table table-striped">
         <thead>
             <tr>
-                <th>Full Name</th>
-                <th>Role</th>
-                <th>Action</th>
+                <th>ID Dự Án</th>
+                <th>Design ID</th>
+                <th>Tên Dự Án</th>
+                <th>Yêu Cầu</th>
+                <th>Nhân Viên</th>
+                <th>Hành Động</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var staff in Model.StaffList)
+            @foreach (var project in Model.Projects)
             {
-                <tr>
-                    <td>@staff.FullName</td>
-                    <td>@staff.Role</td>
-                    <td>
-                        <a href="/ManageStaff/Edit/@staff.StaffId">Edit</a> |
-                        <a href="/ManageStaff/Delete/@staff.StaffId">Delete</a>
-                    </td>
-                </tr>
+                <form method="post" asp-page-handler="AssignStaff">
+                    <tr>
+                        <td>@project.ProjectId</td> <!-- Hiển thị ProjectId -->
+                        <td>@project.DesignId</td> <!-- Hiển thị DesignId -->
+                        <td>@project.ProjectName</td>
+                        <td>@project.RequestDetails</td>
+                        <td>
+                            <input type="hidden" name="selectedProjectId" value="@project.ProjectId" />
+                            <select name="selectedStaffId" class="form-control">
+                                <option value="">Chọn nhân viên</option>
+                                @foreach (var staff in Model.Staffs)
+                                {
+                                <option value="@staff.StaffId" selected="@(project.StaffId == staff.StaffId ? "selected" : null)">@staff.FullName</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary">Phân Công</button>
+                        </td>
+                    </tr>
+                </form>
             }
         </tbody>
     </table>
-</div>
-
-<!-- Add Staff -->
-<div class="add-staff">
-    <h3>Thêm nhân viên mới</h3>
-    <form method="post" asp-page-handler="AddStaff">
-        <div class="form-group">
-            <label for="fullName">Full Name:</label>
-            <input type="text" id="fullName" name="FullName" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <label for="role">Role:</label>
-            <input type="text" id="role" name="Role" class="form-control" required />
-        </div>
-        <button type="submit" class="btn btn-primary">Add Staff</button>
-    </form>
-</div>
+}
+else
+{
+    <p>Hiện không có dự án nào cần phân công.</p>
+}

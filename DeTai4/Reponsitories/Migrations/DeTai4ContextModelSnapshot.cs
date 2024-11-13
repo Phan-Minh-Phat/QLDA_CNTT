@@ -22,33 +22,6 @@ namespace DeTai4.Reponsitories.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DeTai4.Reponsitories.Repositories.Entities.Blog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Author")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Blogs");
-                });
-
             modelBuilder.Entity("DeTai4.Reponsitories.Repositories.Entities.CompanyInfo", b =>
                 {
                     b.Property<int>("CompanyId")
@@ -177,6 +150,9 @@ namespace DeTai4.Reponsitories.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceId"));
 
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
@@ -197,6 +173,8 @@ namespace DeTai4.Reponsitories.Migrations
                     b.HasKey("InvoiceId")
                         .HasName("PK__Invoice__D796AAB50D581F7C");
 
+                    b.HasIndex("CustomerId");
+
                     b.HasIndex(new[] { "OrderId" }, "IX_Invoice_OrderId");
 
                     b.ToTable("Invoice", (string)null);
@@ -209,6 +187,9 @@ namespace DeTai4.Reponsitories.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaintenanceResultId"));
+
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ResultDate")
                         .HasColumnType("datetime");
@@ -225,6 +206,8 @@ namespace DeTai4.Reponsitories.Migrations
 
                     b.HasKey("MaintenanceResultId")
                         .HasName("PK__Maintena__B7A4A728F14F20C9");
+
+                    b.HasIndex("ProjectId");
 
                     b.HasIndex(new[] { "ServiceId" }, "IX_MaintenanceResult_ServiceId");
 
@@ -296,6 +279,15 @@ namespace DeTai4.Reponsitories.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<decimal?>("QuotationAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("QuotationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("QuotationDetails")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RequestDetails")
                         .HasColumnType("nvarchar(max)");
 
@@ -351,6 +343,62 @@ namespace DeTai4.Reponsitories.Migrations
                         .HasName("PK__Promotio__52C42FCF048FAA1D");
 
                     b.ToTable("Promotion", (string)null);
+                });
+
+            modelBuilder.Entity("DeTai4.Reponsitories.Repositories.Entities.Quotation", b =>
+                {
+                    b.Property<int>("QuotationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuotationId"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("QuotationId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("Quotations");
+                });
+
+            modelBuilder.Entity("DeTai4.Reponsitories.Repositories.Entities.Report", b =>
+                {
+                    b.Property<int>("ReportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReportId"));
+
+                    b.Property<int>("ActivePromotions")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompletedProjects")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReportDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TotalProjects")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalQuotationAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ReportId");
+
+                    b.ToTable("Reports");
                 });
 
             modelBuilder.Entity("DeTai4.Reponsitories.Repositories.Entities.Service", b =>
@@ -503,16 +551,26 @@ namespace DeTai4.Reponsitories.Migrations
 
             modelBuilder.Entity("DeTai4.Reponsitories.Repositories.Entities.Invoice", b =>
                 {
+                    b.HasOne("DeTai4.Reponsitories.Repositories.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
                     b.HasOne("DeTai4.Reponsitories.Repositories.Entities.Order", "Order")
                         .WithMany("Invoices")
                         .HasForeignKey("OrderId")
                         .HasConstraintName("FK_Invoice_Order");
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Order");
                 });
 
             modelBuilder.Entity("DeTai4.Reponsitories.Repositories.Entities.MaintenanceResult", b =>
                 {
+                    b.HasOne("DeTai4.Reponsitories.Repositories.Entities.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId");
+
                     b.HasOne("DeTai4.Reponsitories.Repositories.Entities.Service", "Service")
                         .WithMany("MaintenanceResults")
                         .HasForeignKey("ServiceId")
@@ -522,6 +580,8 @@ namespace DeTai4.Reponsitories.Migrations
                         .WithMany("MaintenanceResults")
                         .HasForeignKey("StaffId")
                         .HasConstraintName("FK_MaintenanceResult_Staff");
+
+                    b.Navigation("Project");
 
                     b.Navigation("Service");
 
@@ -568,7 +628,7 @@ namespace DeTai4.Reponsitories.Migrations
                         .HasForeignKey("StaffId")
                         .HasConstraintName("FK_Project_Staff");
 
-                    b.HasOne("DeTai4.Reponsitories.Repositories.Entities.User", "User")
+                    b.HasOne("DeTai4.Reponsitories.Repositories.Entities.User", null)
                         .WithMany("Projects")
                         .HasForeignKey("UserId");
 
@@ -577,8 +637,17 @@ namespace DeTai4.Reponsitories.Migrations
                     b.Navigation("Design");
 
                     b.Navigation("Staff");
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("DeTai4.Reponsitories.Repositories.Entities.Quotation", b =>
+                {
+                    b.HasOne("DeTai4.Reponsitories.Repositories.Entities.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("DeTai4.Reponsitories.Repositories.Entities.Staff", b =>

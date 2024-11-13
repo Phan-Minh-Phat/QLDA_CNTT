@@ -14,11 +14,11 @@ public partial class DeTai4Context : DbContext
         : base(options)
     {
     }
-    public virtual DbSet<Blog> Blogs { get; set; }
+    public virtual DbSet<Report> Reports { get; set; }
+
+    public virtual DbSet<Quotation> Quotations { get; set; }
 
     public virtual DbSet<CompanyInfo> CompanyInfos { get; set; }
-
-    public virtual DbSet<Report> Reports { get; set; }
     public virtual DbSet<Customer> Customers { get; set; }
 
     public virtual DbSet<Design> Designs { get; set; }
@@ -40,6 +40,7 @@ public partial class DeTai4Context : DbContext
     public virtual DbSet<Staff> Staff { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<Blog> Blogs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.

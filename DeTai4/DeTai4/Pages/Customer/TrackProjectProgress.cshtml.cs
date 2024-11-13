@@ -1,46 +1,29 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using DeTai4.Services.Interfaces;
+using DeTai4.Reponsitories.Repositories.Entities;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using DeTai4.Services;
 
-namespace DeTai4.Pages.Customer
+namespace DeTai4.Pages.Home
 {
     public class TrackProjectProgressModel : PageModel
     {
-        public required List<ProjectViewModel> Projects { get; set; }
+        private readonly IProjectService _projectService;
 
-        public void OnGet()
+        public TrackProjectProgressModel(IProjectService projectService)
         {
-            // Example of dummy data for illustration. Replace with real data.
-            Projects = new List<ProjectViewModel>
-            {
-                new ProjectViewModel
-                {
-                    ProjectId = 1,
-                    ProjectName = "D? Án 1",
-                    StartDate = DateTime.Now.AddMonths(-1),
-                    EndDate = DateTime.Now.AddMonths(1),
-                    ProgressPercent = 50,
-                    Status = "?ang Th?c Hi?n"
-                },
-                new ProjectViewModel
-                {
-                    ProjectId = 2,
-                    ProjectName = "D? Án 2",
-                    StartDate = DateTime.Now.AddMonths(-2),
-                    EndDate = DateTime.Now,
-                    ProgressPercent = 100,
-                    Status = "Hoàn Thành"
-                }
-            };
+            _projectService = projectService;
+        }
+
+        public List<Project> Projects { get; set; } = new List<Project>();
+
+        public async Task OnGetAsync()
+        {
+            var customerId = int.Parse(User.FindFirstValue("UserId"));
+            var projects = await _projectService.GetProjectsByCustomerIdAsync(customerId);
+            Projects = projects != null ? new List<Project>(projects) : new List<Project>();
         }
     }
-
-    public class ProjectViewModel
-    {
-        public int ProjectId { get; set; }
-        public required string ProjectName { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-        public int ProgressPercent { get; set; }
-        public required string Status { get; set; }
-    }
-}
+}   

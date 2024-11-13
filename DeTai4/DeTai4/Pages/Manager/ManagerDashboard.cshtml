@@ -1,0 +1,73 @@
+﻿@page
+@model DeTai4.Pages.Manager.ManagerDashboardModel
+@{
+    ViewData["Title"] = "Quản Lý";
+}
+
+<div class="container-fluid bg-secondary text-center py-5" style="background-color: #6c757d;">
+    <h1 class="display-4" style="font-size: 3rem; color: #1c1e21; font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);">
+        Chào Mừng Quản Lý
+    </h1>
+    <p class="lead" style="color: #2c2f33; font-weight: 500;">
+        Chào mừng bạn đến với bảng điều khiển quản lý. Quản lý nhân viên, dự án, dịch vụ bảo dưỡng, và các chương trình khuyến mãi tại đây.
+    </p>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Card: Quản Lý Nhân Viên -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Quản Lý Nhân Viên</h5>
+                    <p class="card-text">Quản lý thông tin và phân công công việc cho nhân viên.</p>
+                    <a href="/Manager/ManageStaff" class="btn btn-primary">Quản lý nhân viên</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Quản Lý Dự Án -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Quản Lý Dự Án</h5>
+                    <p class="card-text">Quản lý các dự án thi công.</p>
+                    <a href="/Manager/ManageProjects" class="btn btn-primary">Quản lý dự án</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Quản Lý Dịch Vụ Bảo Dưỡng -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Quản Lý Dịch Vụ Bảo Dưỡng</h5>
+                    <p class="card-text">Quản lý các dịch vụ bảo dưỡng.</p>
+                    <a href="/Manager/ManageMaintenanceServices" class="btn btn-primary">Quản lý bảo dưỡng</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Quản Lý Bảng Giá và Khuyến Mãi -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Quản Lý Bảng Giá và Khuyến Mãi</h5>
+                    <p class="card-text">Quản lý bảng giá và chương trình khuyến mãi.</p>
+                    <a href="/Manager/ManagePricingAndPromotions" class="btn btn-primary">Quản lý khuyến mãi</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Xem Báo Cáo và Thống Kê -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Xem Báo Cáo và Thống Kê</h5>
+                    <p class="card-text">Xem báo cáo và thống kê chi tiết.</p>
+                    <a href="/Manager/ViewReportsAndStatistics" class="btn btn-primary">Xem báo cáo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

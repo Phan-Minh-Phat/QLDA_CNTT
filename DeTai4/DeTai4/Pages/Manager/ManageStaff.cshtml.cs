@@ -1,52 +1,59 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using DeTai4.Services.Interfaces;
 using DeTai4.Reponsitories.Repositories.Entities;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using DeTai4.Services;
 
-namespace DeTai4.Web.Pages
+namespace DeTai4.Pages.Manager
 {
     public class ManageStaffModel : PageModel
     {
         private readonly IStaffService _staffService;
+        private readonly IProjectService _projectService;
 
-        public ManageStaffModel(IStaffService staffService)
+        public ManageStaffModel(IStaffService staffService, IProjectService projectService)
         {
             _staffService = staffService;
+            _projectService = projectService;
         }
 
-        public IEnumerable<Staff> StaffList { get; set; }
+        public List<Staff> Staffs { get; set; } = new List<Staff>();
+        public List<Project> Projects { get; set; } = new List<Project>();
+
+        [BindProperty]
+        public int SelectedStaffId { get; set; }
+
+        [BindProperty]
+        public int SelectedProjectId { get; set; }
 
         public async Task OnGetAsync()
         {
-            // Fetch all staff
-            StaffList = await _staffService.GetAllStaffAsync();
+            // Lấy danh sách nhân viên
+            Staffs = (await _staffService.GetAllStaffAsync()).ToList();
+
+            // Lấy danh sách dự án chưa phân công
+            Projects = (await _projectService.GetAllProjectsAsync()).Where(p => p.StaffId == null).ToList();
         }
 
-        // Handler for adding new staff
-        public async Task<IActionResult> OnPostAddStaffAsync(string fullName, string role)
+        public async Task<IActionResult> OnPostAssignStaffAsync(int selectedProjectId, int selectedStaffId)
         {
-            if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(role))
+            // Xác định dự án cần phân công
+            var project = await _projectService.GetProjectByIdAsync(selectedProjectId);
+            if (project == null)
             {
-                ModelState.AddModelError("", "Full Name and Role are required.");
+                ModelState.AddModelError("", "Không tìm thấy dự án.");
                 return Page();
             }
 
-            // Create new staff instance
-            var newStaff = new Staff
-            {
-                FullName = fullName,
-                Role = role
-            };
+            // Cập nhật StaffId của dự án
+            project.StaffId = selectedStaffId;
+            await _projectService.UpdateProjectAsync(project);
 
-            // Add staff using service
-            await _staffService.AddStaffAsync(newStaff);
-
-            // Redirect to the same page to reload staff list
+            // Quay lại trang hiện tại để cập nhật danh sách
             return RedirectToPage();
         }
-
-        // You can add OnPost methods for delete/edit actions here.
     }
 }

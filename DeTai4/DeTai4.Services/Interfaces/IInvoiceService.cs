@@ -11,5 +11,7 @@ namespace DeTai4.Services
         Task CreateInvoiceAsync(Invoice invoice);
         Task UpdateInvoiceAsync(Invoice invoice);
         Task DeleteInvoiceAsync(int invoiceId);
+                Task<IEnumerable<Invoice>> GetInvoicesByCustomerIdAsync(int customerId);
+
     }
 }

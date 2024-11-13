@@ -18,6 +18,14 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
+                    <!-- Hiển thị thông báo thành công nếu có -->
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success text-center mt-4">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+
                     <form method="post">
                         <div class="form-group">
                             <label for="DesignId" class="font-weight-bold">Chọn Mẫu Thiết Kế</label>
@@ -40,13 +48,6 @@
                         <div class="text-center mt-4">
                             <button type="submit" class="btn btn-primary btn-lg">Gửi Yêu Cầu</button>
                         </div>
-
-                        @if (Model.IsRequestSubmitted)
-                        {
-                            <div class="alert alert-success mt-4 text-center">
-                                Yêu cầu đã được gửi thành công!
-                            </div>
-                        }
                     </form>
                 </div>
             </div>

@@ -1,35 +1,26 @@
-using Microsoft.AspNetCore.Mvc;
+using DeTai4.Services.Interfaces;
+using DeTai4.Reponsitories.Repositories.Entities;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using DeTai4.Services;
 
 namespace DeTai4.Pages.Consulting_Staff
 {
     public class TrackProjectModel : PageModel
     {
-        [BindProperty(SupportsGet = true)]
-        public string ProjectId { get; set; }
+        private readonly IProjectService _projectService;
 
-        public string ProjectStatus { get; set; }
-        public string ProjectDescription { get; set; }
-        public DateTime ExpectedCompletionDate { get; set; }
-
-        public void OnGet()
+        public TrackProjectModel(IProjectService projectService)
         {
-            if (!string.IsNullOrEmpty(ProjectId))
-            {
-                // Simulate fetching project data
-                FetchProjectDetails(ProjectId);
-            }
+            _projectService = projectService;
         }
 
-        private void FetchProjectDetails(string projectId)
-        {
-            // Replace with actual project fetching logic
-            ProjectStatus = "?ang thi công";
-            ProjectDescription = "D? án xây d?ng h? cá Koi cho khách hàng ABC.";
-            ExpectedCompletionDate = DateTime.Today.AddDays(30);
+        public IEnumerable<Project> PendingProjects { get; set; } = new List<Project>();
 
-            System.Console.WriteLine($"Fetched details for Project {projectId}");
+        public async Task OnGetAsync()
+        {
+            PendingProjects = await _projectService.GetPendingProjectsAsync();
         }
     }
 }
