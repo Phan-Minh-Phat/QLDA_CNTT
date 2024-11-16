@@ -1,0 +1,31 @@
+﻿@page
+@model DeTai4.Pages.Construction_Staff.ManageConstructionProgressModel
+@{
+    ViewData["Title"] = "Quản Lý Tiến Độ Thi Công";
+}
+
+<h2>Quản Lý Tiến Độ Thi Công</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Dự Án</th>
+            <th>Ngày Bắt Đầu</th>
+            <th>Ngày Kết Thúc</th>
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model.Projects)
+        {
+            <tr>
+                <td>@project.ProjectName</td>
+                <td>@project.StartDate</td>
+                <td>@project.EndDate</td>
+                <td>
+                    <a asp-page="./EditConstructionProgress" asp-route-id="@project.ProjectId" class="btn btn-primary">Chỉnh sửa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

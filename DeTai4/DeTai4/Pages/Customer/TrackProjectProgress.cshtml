@@ -1,0 +1,55 @@
+﻿@page
+@model DeTai4.Pages.Customer.TrackProjectProgressModel
+@{
+    ViewData["Title"] = "Theo Dõi Tiến Độ Dự Án";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">@ViewData["Title"]</h2>
+    <p class="text-center">Dưới đây là tiến độ dự án của bạn</p>
+
+    @if (Model.Projects != null && Model.Projects.Count > 0)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Mã Dự Án</th>
+                    <th scope="col">Tên Dự Án</th>
+                    <th scope="col">Ngày Bắt Đầu</th>
+                    <th scope="col">Ngày Kết Thúc</th>
+                    <th scope="col">Tiến Độ (%)</th>
+                    <th scope="col">Trạng Thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model.Projects)
+                {
+                    <tr>
+                        <td>@project.ProjectId</td>
+                        <td>@project.ProjectName</td>
+                        <td>@project.StartDate?.ToString("dd/MM/yyyy")</td>
+                        <td>@project.EndDate?.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: @project.ProgressPercent%;" aria-valuenow="@project.ProgressPercent" aria-valuemin="0" aria-valuemax="100">
+                                    @project.ProgressPercent%
+                                </div>
+                            </div>
+                        </td>
+                        <td>@project.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center text-muted">Hiện không có dự án nào đang theo dõi.</p>
+    }
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

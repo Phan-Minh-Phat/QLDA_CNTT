@@ -1,0 +1,51 @@
+﻿@page
+@model DeTai4.Pages.Design_Staff.CreateDesignModel
+@{
+    ViewData["Title"] = "Create Design";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Create New Design</h2>
+
+    <!-- Form tạo thiết kế mới -->
+    <form method="post">
+        <!-- Input tên thiết kế -->
+        <div class="mb-3">
+            <label for="DesignName" class="form-label">Design Name</label>
+            <input type="text" class="form-control" id="DesignName" asp-for="NewDesign.DesignName" required />
+            <span asp-validation-for="NewDesign.DesignName" class="text-danger"></span>
+        </div>
+
+        <!-- Input giá của thiết kế -->
+        <div class="mb-3">
+            <label for="Price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="Price" asp-for="NewDesign.Cost" required />
+            <span asp-validation-for="NewDesign.Cost" class="text-danger"></span>
+        </div>
+
+        <!-- Input mô tả thiết kế -->
+        <div class="mb-3">
+            <label for="Description" class="form-label">Description</label>
+            <textarea class="form-control" id="Description" asp-for="NewDesign.Description" rows="3" required></textarea>
+            <span asp-validation-for="NewDesign.Description" class="text-danger"></span>
+        </div>
+
+        <!-- Nút gửi form -->
+        <button type="submit" class="btn btn-primary">Create Design</button>
+    </form>
+
+    <!-- Hiển thị thông báo lỗi nếu có -->
+    <div>
+        <h3 class="text-danger">
+            @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString()))
+            {
+                <text>@ViewData["ErrorMessage"]</text>
+            }
+        </h3>
+    </div>
+</div>
+
+@section Scripts {
+    @Html.PartialAsync("_ValidationScriptsPartial")
+}
+
