@@ -1,0 +1,37 @@
+﻿@page
+@model DeTai4.Pages.ManageMaintenanceServicesModel
+@{
+    ViewData["Title"] = "Quản lý dịch vụ bảo dưỡng";
+}
+
+<h2>Quản lý dịch vụ bảo dưỡng</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên Dịch Vụ</th>
+            <th>Nhân Viên Phụ Trách</th>
+            <th>Kết Quả Bảo Dưỡng</th>
+            <th>Đơn Hàng</th>
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var service in Model.Services)
+        {
+            <tr>
+                <td>@service.ServiceName</td>
+                <td>@(service.Staff != null ? service.Staff.ToString() : "Không có nhân viên")</td>
+                <td>@(service.MaintenanceResults != null && service.MaintenanceResults.Any() ? "Có" : "Không")</td>
+                <td>@(service.Orders != null && service.Orders.Any() ? "Có" : "Không")</td>
+                <td>
+                    <a asp-page="/EditService" asp-route-id="@service.ServiceId" class="btn btn-primary">Sửa</a>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@service.ServiceId" style="display:inline">
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-page="/CreateService" class="btn btn-success">Thêm mới dịch vụ</a>

@@ -27,7 +27,6 @@
   <ItemGroup>
     <Folder Include="Pages\Design_Staff\" />
     <Folder Include="Pages\Construction_Staff\" />
-    <Folder Include="Pages\Manager\" />
   </ItemGroup>
 
 </Project>

@@ -18,6 +18,7 @@ public partial class DeTai4Context : DbContext
 
     public virtual DbSet<CompanyInfo> CompanyInfos { get; set; }
 
+    public virtual DbSet<Report> Reports { get; set; }
     public virtual DbSet<Customer> Customers { get; set; }
 
     public virtual DbSet<Design> Designs { get; set; }
