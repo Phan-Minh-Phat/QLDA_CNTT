@@ -1,0 +1,66 @@
+﻿@page
+@model DeTai4.Pages.Manager.ViewReportsAndStatisticsModel
+@{
+    ViewData["Title"] = "Xem Báo Cáo và Thống Kê";
+}
+
+<h2>Xem Báo Cáo và Thống Kê</h2>
+
+@if (Model.Reports.Count == 0)
+{
+    <p>Không có báo cáo nào để hiển thị.</p>
+}
+else
+{
+    <form method="post" asp-page-handler="ExportReport">
+        <button type="submit" class="btn btn-primary">Xuất Báo Cáo</button>
+    </form>
+    <br />
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Mã Báo Cáo</th>
+                <th>Ngày Báo Cáo</th>
+                <th>Tổng Số Dự Án</th>
+                <th>Dự Án Hoàn Thành</th>
+                <th>Tổng Số Tiền Báo Giá</th>
+                <th>Số Khuyến Mãi Hiện Hành</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var report in Model.Reports)
+            {
+                <tr>
+                    <td>@report.ReportId</td>
+                    <td>@report.ReportDate.ToString("dd/MM/yyyy")</td>
+                    <td>@report.TotalProjects</td>
+                    <td>@report.CompletedProjects</td>
+                    <td>@report.TotalQuotationAmount.ToString("C")</td>
+                    <td>@report.ActivePromotions</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h3>Thêm Báo Cáo Mới</h3>
+<form method="post" asp-page-handler="AddReport">
+    <div class="form-group">
+        <label>Tổng Số Dự Án</label>
+        <input asp-for="TotalProjects" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Dự Án Hoàn Thành</label>
+        <input asp-for="CompletedProjects" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Tổng Số Tiền Báo Giá</label>
+        <input asp-for="TotalQuotationAmount" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Số Khuyến Mãi Hiện Hành</label>
+        <input asp-for="ActivePromotions" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">Thêm Báo Cáo</button>
+</form>
