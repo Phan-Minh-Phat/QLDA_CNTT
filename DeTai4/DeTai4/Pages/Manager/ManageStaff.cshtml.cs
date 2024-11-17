@@ -37,7 +37,7 @@ namespace DeTai4.Pages.Manager
             // Lấy danh sách dự án chưa phân công
             Projects = (await _projectService.GetAllProjectsAsync()).Where(p => p.StaffId == null).ToList();
         }
-
+ 
         public async Task<IActionResult> OnPostAssignStaffAsync(int selectedProjectId, int selectedStaffId)
         {
             // Xác định dự án cần phân công
